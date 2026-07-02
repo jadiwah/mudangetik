@@ -1,2 +1,0 @@
-# mudangetik
-mudangetik 
