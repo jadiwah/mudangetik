@@ -202,22 +202,26 @@ body {
             border-radius: 10px;
         }
 
-        .preview-item {
-            flex: 0 0 210px;
-            scroll-snap-align: start;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: #070B18;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .preview-item video,
-        .preview-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .preview-item { 
+    flex: 0 0 210px; 
+    height: 370px; /* Kita kunci tinggi kotaknya agar seragam ala PlayStore */
+    scroll-snap-align: start; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #070B18;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Memastikan video dan gambar di dalamnya dipaksa mengisi penuh kotak tanpa merusak rasio */
+.preview-item video, .preview-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+}
 
         /* Slide 3: Quote Box */
         .quote-box {
