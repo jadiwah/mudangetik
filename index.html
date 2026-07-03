@@ -1,5 +1,3 @@
-
-<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -7,6 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akses E-Book Formula Worth It - MudaNgetik</title>
     <style>
+        html {
+        scroll-behavior: smooth;
+        }
+        /* Warna teks emas menyala saat tab FAQ / Hubungi Kami aktif */
+        .nav-link-item.active-nav {
+        color: #D4AF37 !important;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        }
+        
+        /* Perubahan tombol Member Area saat tab Member aktif */
+        .btn-member-area.active-member {
+        background: #0F172A !important;
+        border-color: #D4AF37 !important;
+        color: #D4AF37 !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Reset bawaan tag button member area agar menyerupai tombol aslinya */
+        .btn-member-area {
+        cursor: pointer;
+        font-family: 'Inter', 'Poppins', sans-serif;
+        outline: none;
+        }
+        /* Kontainer Utama Navigasi Atas */
+        .nav-container-premium {
+        display: flex;
+        justify-content: space-between; /* Memisahkan grup kiri (menu) dan grup kanan (member area) */
+        align-items: center;
+        padding: 15px 5%; /* Jarak aman dari tepi layar laptop */
+        background: transparent; /* Mengikuti warna latar belakang dasar web */
+        width: 100%;
+        box-sizing: border-box;
+        }
+        
+        /* Grup Menu Sebelah Kiri */
+        .nav-links-left {
+        display: flex;
+        gap: 25px; /* Jarak renggang antar kata agar elegan */
+        }
+        
+        /* Style Teks Menu FAQ & Hubungi Kami */
+        .nav-link-item {
+        color: #B0B3B8;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        font-family: 'Inter', 'Poppins', sans-serif;
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+        }
+        
+        /* Efek saat menu disorot kursor */
+        .nav-link-item:hover {
+        color: #D4AF37; /* Berubah menjadi Emas khas proyekmu */
+        text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Penyelaras Tombol Member Area Kanan agar Tetap Presisi Melengkung */
+        .btn-member-area {
+        display: inline-block;
+        background: #1E293B;
+        color: #FFFFFF;
+        text-decoration: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: 1px dashed rgba(255, 255, 255, 0.15);
+        transition: all 0.3s;
+        }
+        .btn-member-area:hover {
+        background: #0F172A;
+        border-color: #D4AF37;
+        }
+        
+        /* Responsif Mobile: Jika dibuka di HP, menu tetap sejajar rapi */
+        @media (max-width: 600px) {
+        .nav-container-premium {
+        padding: 12px 15px;
+        }
+        .nav-links-left {
+        gap: 15px;
+        }
+        .nav-link-item {
+        font-size: 0.85rem;
+        }
+        .btn-member-area {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        }
+        }
         /* ==========================================================================
            1. BASE SETUP & THEME AESTHETIC (Navy Blue & Neon Gold)
            ========================================================================== */
@@ -18,436 +107,706 @@
         }
 
         body {
-body { 
-    background-color: #020617; 
-    color: #FFFFFF; 
-    scroll-behavior: smooth; 
-}
-
-        /* Layout per Slide / Section */
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        /* Navigasi Simpel Atas */
-        .nav-header {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .nav-member-btn {
-            color: #A0A0A0;
-            text-decoration: none;
-            padding: 8px 16px;
-            border: 1px dashed rgba(160, 160, 160, 0.6);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            background: rgba(11, 19, 43, 0.8);
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .nav-member-btn:hover {
-            color: #D4AF37;
-            border-color: #D4AF37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-
-        /* Aksentunasi Teks Emas Neon */
-        .gold-text {
-            color: #D4AF37;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            line-height: 1.6;
-            color: #E0E0E0;
-        }
-
-        /* ==========================================================================
-           2. TAMPILAN DINAMIS & KOMPONEN KHUSUS
-           ========================================================================== */
-
-        /* Slide 1: Bullet Points Layout */
-        .logo-icon {
-            font-size: 4.5rem;
-            margin-bottom: 15px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .bullet-points {
-            text-align: left;
-            margin-top: 25px;
-            list-style-type: '✨ ';
-        }
-
-        .bullet-points li {
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-            color: #F0F0F0;
-        }
-
-        /* Slide 2: Split Container & Efek Kartu Dinamis */
-        .split-container {
-            display: flex;
-            gap: 30px;
-            width: 100%;
-            max-width: 900px;
-            margin-top: 40px;
-        }
-
-        .card {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 16px;
-            padding: 35px 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Efek Dinamis Saat Kartu di-Hover */
-        .card:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.04);
-            border-color: #D4AF37;
-            box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.15);
-        }
-
-        .card.vip {
-            border: 2px solid #D4AF37;
-            background: rgba(214, 175, 55, 0.02);
-        }
-
-        .card.vip:hover {
-            box-shadow: 0 12px 45px 0 rgba(212, 175, 55, 0.25);
-        }
-
-        /* Desain Tombol Aksi */
-        .btn {
-            display: inline-block;
-            background: #D4AF37;
-            color: #0B132B;
-            padding: 12px 32px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 25px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #FFFFFF;
-            border: 2px solid rgba(212, 175, 55, 0.6);
-        }
-
-        .btn-outline:hover {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: #D4AF37;
-        }
-
-        /* Galeri Preview Gaya PlayStore (Horizontal Scroll) */
-        .preview-section {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 40px;
-        }
-
-        .playstore-gallery {
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 10px 5px 20px 5px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Sembunyikan scrollbar bawaan di beberapa browser agar estetik */
-        .playstore-gallery::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .playstore-gallery::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
-        }
-
-        .preview-item { 
-    flex: 0 0 210px; 
-    height: 370px; /* Kita kunci tinggi kotaknya agar seragam ala PlayStore */
-    scroll-snap-align: start; 
-    border-radius: 12px; 
-    overflow: hidden; 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: #070B18;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-/* Memastikan video dan gambar di dalamnya dipaksa mengisi penuh kotak tanpa merusak rasio */
-.preview-item video, .preview-item img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    display: block; 
-}
-
-        /* Slide 3: Quote Box */
-        .quote-box {
-            font-style: italic;
-            font-size: 1.8rem;
-            font-weight: 300;
-            max-width: 700px;
-            line-height: 1.5;
-        }
-
-        /* Slide 5: Badge Member Area */
-        .badge-status {
-            background: rgba(212, 175, 55, 0.1);
-            color: #D4AF37;
-            border: 1px solid #D4AF37;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .info-box {
-            margin-top: 35px;
-            background: rgba(255, 255, 255, 0.01);
-            border-left: 4px solid #D4AF37;
-            padding: 18px 25px;
-            border-radius: 4px;
-            display: inline-block;
-            text-align: left;
-            max-width: 550px;
-        }
-
-        /* Slide 6: Social Links */
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .social-btn {
-            color: #FFFFFF;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 8px 24px;
-            border-radius: 20px;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .social-btn:hover {
-            background: #FFFFFF;
-            color: #0B132B;
-            border-color: #FFFFFF;
-        }
-
-        /* Animasi Logo Mengambang */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
+            body {
+                background-color: #020617;
+                color: #FFFFFF;
+                scroll-behavior: smooth;
             }
 
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        /* ==========================================================================
-           3. RESPONSIVE LAYOUT (MOBILE FRIENDLY)
-           ========================================================================== */
-        @media (max-width: 768px) {
-            .split-container {
+            /* Layout per Slide / Section */
+            section {
+                min-height: 100vh;
+                display: flex;
                 flex-direction: column;
-                gap: 20px;
+                justify-content: center;
+                align-items: center;
+                padding: 60px 20px;
+                text-align: center;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+
+            /* Navigasi Simpel Atas */
+            .nav-header {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+            }
+
+            .nav-member-btn {
+                color: #A0A0A0;
+                text-decoration: none;
+                padding: 8px 16px;
+                border: 1px dashed rgba(160, 160, 160, 0.6);
+                border-radius: 20px;
+                font-size: 0.85rem;
+                background: rgba(11, 19, 43, 0.8);
+                backdrop-filter: blur(5px);
+                transition: 0.3s;
+            }
+
+            .nav-member-btn:hover {
+                color: #D4AF37;
+                border-color: #D4AF37;
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            }
+
+            /* Aksentunasi Teks Emas Neon */
+            .gold-text {
+                color: #D4AF37;
+                text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                letter-spacing: 0.5px;
             }
 
+            p {
+                font-size: 1.1rem;
+                max-width: 600px;
+                line-height: 1.6;
+                color: #E0E0E0;
+            }
+
+            /* ==========================================================================
+           2. TAMPILAN DINAMIS & KOMPONEN KHUSUS
+           ========================================================================== */
+
+            /* Slide 1: Bullet Points Layout */
+            .logo-icon {
+                font-size: 4.5rem;
+                margin-bottom: 15px;
+                animation: float 3s ease-in-out infinite;
+            }
+
+            .bullet-points {
+                text-align: left;
+                margin-top: 25px;
+                list-style-type: '✨ ';
+            }
+
+            .bullet-points li {
+                margin-bottom: 12px;
+                font-size: 1.1rem;
+                color: #F0F0F0;
+            }
+
+            /* Slide 2: Split Container & Efek Kartu Dinamis */
+            .split-container {
+                display: flex;
+                gap: 30px;
+                width: 100%;
+                max-width: 900px;
+                margin-top: 40px;
+            }
+
+            .card {
+                flex: 1;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(212, 175, 55, 0.3);
+                border-radius: 16px;
+                padding: 35px 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Efek Dinamis Saat Kartu di-Hover */
+            .card:hover {
+                transform: translateY(-8px);
+                background: rgba(255, 255, 255, 0.04);
+                border-color: #D4AF37;
+                box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.15);
+            }
+
+            .card.vip {
+                border: 2px solid #D4AF37;
+                background: rgba(214, 175, 55, 0.02);
+            }
+
+            .card.vip:hover {
+                box-shadow: 0 12px 45px 0 rgba(212, 175, 55, 0.25);
+            }
+
+            /* Desain Tombol Aksi */
+            .btn {
+                display: inline-block;
+                background: #D4AF37;
+                color: #0B132B;
+                padding: 12px 32px;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: bold;
+                margin-top: 25px;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+            }
+
+            .btn:hover {
+                transform: scale(1.03);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: #FFFFFF;
+                border: 2px solid rgba(212, 175, 55, 0.6);
+            }
+
+            .btn-outline:hover {
+                background: rgba(212, 175, 55, 0.1);
+                border-color: #D4AF37;
+            }
+
+            /* Galeri Preview Gaya PlayStore (Horizontal Scroll) */
+            .preview-section {
+                width: 100%;
+                max-width: 900px;
+                margin-top: 40px;
+            }
+
+            .playstore-gallery {
+                display: flex;
+                gap: 15px;
+                overflow-x: auto;
+                padding: 10px 5px 20px 5px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Sembunyikan scrollbar bawaan di beberapa browser agar estetik */
+            .playstore-gallery::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .playstore-gallery::-webkit-scrollbar-thumb {
+                background: rgba(212, 175, 55, 0.3);
+                border-radius: 10px;
+            }
+
+            .preview-item {
+                flex: 0 0 210px;
+                height: 370px;
+                /* Kita kunci tinggi kotaknya agar seragam ala PlayStore */
+                scroll-snap-align: start;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: #070B18;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Memastikan video dan gambar di dalamnya dipaksa mengisi penuh kotak tanpa merusak rasio */
+            .preview-item video,
+            .preview-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Slide 3: Quote Box */
             .quote-box {
-                font-size: 1.4rem;
+                font-style: italic;
+                font-size: 1.8rem;
+                font-weight: 300;
+                max-width: 700px;
+                line-height: 1.5;
             }
 
-            section {
-                padding: 50px 15px;
+            /* Slide 5: Badge Member Area */
+            .badge-status {
+                background: rgba(212, 175, 55, 0.1);
+                color: #D4AF37;
+                border: 1px solid #D4AF37;
+                padding: 6px 16px;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                display: inline-block;
+                margin-bottom: 20px;
             }
 
-            .nav-header {
-                top: 15px;
-                right: 15px;
+            .info-box {
+                margin-top: 35px;
+                background: rgba(255, 255, 255, 0.01);
+                border-left: 4px solid #D4AF37;
+                padding: 18px 25px;
+                border-radius: 4px;
+                display: inline-block;
+                text-align: left;
+                max-width: 550px;
             }
-        }
+
+            /* Slide 6: Social Links */
+            .social-links {
+                display: flex;
+                gap: 15px;
+                margin-top: 30px;
+            }
+
+            .social-btn {
+                color: #FFFFFF;
+                text-decoration: none;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                padding: 8px 24px;
+                border-radius: 20px;
+                transition: 0.3s;
+                font-size: 0.9rem;
+            }
+
+            .social-btn:hover {
+                background: #FFFFFF;
+                color: #0B132B;
+                border-color: #FFFFFF;
+            }
+
+            /* Animasi Logo Mengambang */
+            @keyframes float {
+                0% {
+                    transform: translateY(0px);
+                }
+
+                50% {
+                    transform: translateY(-10px);
+                }
+
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            /* ==========================================================================
+           3. RESPONSIVE LAYOUT (MOBILE FRIENDLY)
+           ========================================================================== */
+            @media (max-width: 768px) {
+                .split-container {
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .quote-box {
+                    font-size: 1.4rem;
+                }
+
+                section {
+                    padding: 50px 15px;
+                }
+
+                .nav-header {
+                    top: 15px;
+                    right: 15px;
+                }
+            }
+
+            <style>@keyframes pulseGlow {
+                0% {
+                    opacity: 0.7;
+                    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+                }
+
+                50% {
+                    opacity: 1;
+                    box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+                }
+
+                100% {
+                    opacity: 0.7;
+                    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+                }
+            }
+            .faq-item {
+            background: #070B18;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 16px; /* Lekukan melengkung halus yang modern */
+            transition: all 0.3s ease;
+            }
+            .faq-item h3 {
+            color: #FFDF73;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            }
+            .faq-item p {
+            color: #B0B3B8;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            }
+            /* Efek menyala tipis saat kotak diarahkan kursor */
+            .faq-item:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            }
+            
+            /* Style Khusus Kotak Aturan Mandiri */
+            .faq-item-mandiri {
+            background: #070B18;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 20px;
+            border-radius: 16px; /* Lekukan melengkung sama rata */
+            transition: all 0.3s ease;
+            }
+            .faq-item-mandiri h3 {
+            color: #D4AF37;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            }
+            .faq-item-mandiri p {
+            color: #B0B3B8;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            }
+            .faq-item-mandiri:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.1);
+            }
+            .tab-trigger {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #B0B3B8;
+            padding: 10px 24px;
+            border-radius: 30px; /* Model pil kapsul modern */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            }
+            /* Style Tombol Saat Aktif */
+            .tab-trigger.active {
+            background: #070B18;
+            border-color: #D4AF37;
+            color: #D4AF37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            }
+            
+            /* Kotak Konten Melengkung */
+            .faq-card-item, .hubungi-card-item {
+            background: #070B18;
+            padding: 22px;
+            border-radius: 16px; /* Lengkungan konsisten */
+            transition: all 0.3s ease;
+            }
+            .faq-card-item { border: 1px solid rgba(255, 255, 255, 0.05); }
+            .faq-card-item.mandiri-border { border: 1px solid rgba(212, 175, 55, 0.2); }
+            .hubungi-card-item { border: 1px solid rgba(212, 175, 55, 0.2); text-align: center; }
+            
+            .faq-card-item h3 { color: #FFDF73; margin: 0 0 10px 0; font-size: 1.1rem; text-align: left; }
+            .faq-card-item.mandiri-border h3 { color: #D4AF37; }
+            .hubungi-card-item h3 { color: #D4AF37; margin: 0 0 10px 0; font-size: 1.4rem; }
+            .faq-card-item p { color: #B0B3B8; margin: 0; font-size: 0.95rem; line-height: 1.6; text-align: left; }
+            
+            /* Efek Hover */
+            .faq-card-item:hover, .hubungi-card-item:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+            }
+            
+            /* Tombol Sosial Media */
+            .tab-socmed-btn {
+            display: block; padding: 14px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            transition: all 0.2s; text-align: center;
+            }
+            .tab-socmed-btn.ig-color { background: linear-gradient(45deg, #405DE6, #C13584, #FD1D1D); color: #fff; }
+            .tab-socmed-btn.wa-color { background: #25D366; color: #fff; }
+            .tab-socmed-btn.tele-color { background: #229ED9; color: #fff; }
+            .tab-socmed-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+            </style>
+            </style>
+            
     </style>
+
+
 </head>
 
 <body>
 
     <!-- NAVIGASI DAERAH MEMBER -->
-    <div class="nav-header">
-        <a href="#member-area" class="nav-member-btn">🔐 Member Area</a>
+<!-- NAVIGASI UTAMA SEJAJAR -->
+<div class="nav-container-premium">
+    <!-- Bagian Kiri: Menu FAQ & Hubungi Kami -->
+    <div class="nav-links-left">
+        <a href="#info-section" id="nav-btn-faq" class="nav-link-item active-nav" onclick="switchTab('faq')">FAQ</a>
+        <a href="#info-section" id="nav-btn-hubungi" class="nav-link-item" onclick="switchTab('hubungi')">Hubungi Kami</a>
     </div>
-
+    <!-- Bagian Kanan: Sakelar Member Area -->
+<div class="nav-member-right">
+    <!-- Membuka halaman memberarea di tab baru secara internal -->
+    <a href="memberzone" target="_blank" id="nav-btn-member" class="nav-link-item btn-member-area">🔐 Member Area</a>
+</div>
+</div>
+    </div>
+</div>
     <!-- SLIDE 1: WELCOME & FEATURE HOOK -->
     <section id="welcome">
-<img src="logo.png" alt="Logo MudaNgetik" style="width: 100px; height: auto; object-fit: contain;">
+        <img src="logo.png" alt="Logo MudaNgetik" style="width: 100px; height: auto; object-fit: contain;">
         <h1>Welcome to <span class="gold-text">Stellar Zone</span></h1>
         <h1> @mudangetik
 
 
-    <!-- SLIDE 2: GATEWAY (FREE VS VIP) + PREVIEW GAYA PLAYSTORE -->
-    <section id="akses">
-        <h1>Pilih Jalur <span class="gold-text">Perjuanganmu</span></h1>
-        <p>Bersedia bersabar di waitinglist atau satset instan akses malam ini?</p>
+            <!-- SLIDE 2: GATEWAY (FREE VS VIP) + PREVIEW GAYA PLAYSTORE -->
+            <section id="akses">
+                <h1>Pilih Jalur <span class="gold-text">Perjuanganmu</span></h1>
+                <p>Bersedia bersabar di waitinglist atau satset instan akses saat ini?</p>
 
-        <!-- CONTAINER DUA KARTU DINAMIS -->
-        <div class="split-container">
-            <!-- KIRI: JALUR FREE 😄 -->
-            <div class="card free">
-                <div>
-                    <h2 style="font-size: 1.4rem; margin-bottom: 8px;">Jalur FREE </h2>
-                    <h3 class="gold-text" style="margin-top: 15px; font-size: 1.5rem;"> Gratis</h3>
-                    <p style="font-size: 0.9rem; color: #B0B3B8;"> Isi gform langsung masuk  Waiting List & Gabung Komunitas WA</p>
-                </div>
-                <a href="https://forms.gle/DQgRMo3rgSuayeVs6" target="_blank" class="btn btn-outline">Isi Formulir </a>
-            </div>
+                <!-- CONTAINER DUA KARTU DINAMIS -->
+                <div class="split-container">
+                    <!-- KIRI: JALUR FREE 😄 -->
+                    <div class="card free">
+                        <div>
+                            <h2 style="font-size: 4rem; margin-bottom: 8px;">Jalur FREE </h2>
+                            <h3 class="gold-text" style="margin-top: 15px; font-size: 2rem;"> Gratis</h3>
+                            <p style="font-size: 1.5rem;color: #F6C80E;"> Isi gform langsung masuk Waiting List &amp; Join Circle WA mudangetik</p>
+                        </div>
+                        <a href="https://forms.gle/DQgRMo3rgSuayeVs6" target="_blank" class="btn btn-outline">Isi
+                            Formulir </a>
+                    </div>
 
-            <!-- KANAN: JALUR VIP -->
-            <div class="card vip">
-                <div>
-                    <h2 style="font-size: 1.4rem; margin-bottom: 8px;">Jalur VIP 😎</h2>
-                    <p style="font-size: 0.9rem; color: #B0B3B8;">Instant Access via Lynk.id. Langsung download filenya dalam hitungan detik tanpa syarat antre.</p>
-                    <h3 class="gold-text" style="margin-top: 15px; font-size: 1.5rem;">Hanya 9K</h3>
+                    <!-- KANAN: JALUR VIP -->
+                    <!-- KANAN: JALUR VIP DENGAN STRATEGI DISKON + VOUCHER -->
+                    <div class="card vip">
+                        <div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 8px;">
+                                <h2 style="font-size: 2.7rem;">Jalur VIP ⚡</h2>
+                                <!-- Tab Voucher Interaktif -->
+                                <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20Saya (nama) mau%20minta%20Kode%20Voucher%20MudaNgetik%20dong%20biar%20bisa%20tebus%209K%21"
+                                    target="_blank"
+                                    style="background: #D4AF37; color: #0B132B; font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: 4px; text-decoration: none; animation: pulse 2s infinite;">
+                                    🎟️ Pakai Voucher
+                                </a>
+                            </div>
+                            <p style="font-size: 1.5rem;color: #B0B3B8;text-align: left;">Instant Access via Lynk.id. Langsung download tanpa antre.</p>
+                            <!-- Efek Coret Harga (Price Anchoring) -->
+                            <div style="margin-top: 15px;">
+                                <span style="text-decoration: line-through; color: #888; font-size: 2.5rem; margin-right: 8 px;">Rp 29K</span>
+                                <span class="gold-text" style="font-size: 3rem; font-weight: bold;">Rp 19K</span>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #A0A0A0; margin-top: 5px; font-style: italic;">
+                                💡 Klik "Pakai Voucher" di atas untuk klaim potongan harga hingga cuma bayar
+                                <b>Rp 9.000</b> (Lebih murah dari kopi kekinian!).
+                            </p>
+                        </div>
+                        <a href="https://lynk.id/suksesbarengjalurlangit/2gepqd0v90lw/checkout" target="_blank" class="btn"> Akses Ebook Instan</a>
+                    </div>
                 </div>
-                <a href="http://lynk.id/suksesbarengjalurlangit/2gepqd0v90lw/checkout" target="_blank" class="btn">Ambil Akses Instan</a>
-            </div>
+                <div class="doa-section"
+                    style="margin: 40px auto; max-width: 600px; padding: 20px; border-radius: 12px; background: #070B18; border: 1px solid rgba(212, 175, 55, 0.2); text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                    <div
+                        style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="font-size: 1.5rem;">✨</span>
+                        <h3 style="color: #D4AF37; margin: 0; font-size: 1.3rem; letter-spacing: 0.5px;">Tab Doa &amp;
+                            Konektivitas</h3>
+                    </div>
+
+                    <!-- Kotak Status Terkunci (Locked State) -->
+                    <div class="locked-container"
+                        style="position: relative; padding: 25px 15px; background: rgba(3, 7, 18, 0.6); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.1);">
+                        <div
+                            style="font-size: 2rem; margin-bottom: 10px; filter: drop-shadow(0 0 8px rgba(212,175,55,0.4));">
+                            🔒</div>
+
+                        <p
+                            style="font-size: 0.95rem; color: #FFFFFF; font-weight: 500; margin-bottom: 8px; line-height: 1.5;">
+                            "Tulisan doa esensial, kelancaran urusan, dan booster ketenangan batin baru akan terbuka
+                            secara otomatis di sini..."
+                        </p>
+
+                        <!-- Progress Bar Menuju 50+ Orang -->
+                        <div class="progress-bar-bg"
+                            style="width: 100%; height: 8px; background: #1F2937; border-radius: 4px; margin: 15px 0 8px 0; overflow: hidden;">
+                            <div class="progress-bar-fill"
+                                style="width: 35%; height: 100%; background: linear-gradient(90deg, #D4AF37, #FFDF73); border-radius: 4px; animation: pulseGlow 2s infinite;">
+                            </div>
+                        </div>
+
+                        <span style="font-size: 0.8rem; color: #B0B3B8; display: block;">
+            Syarat Kelayakan: <b>Circle MudaNgetik mencapai 50+ orang</b> (Yuk, ajak circle-mu gabung sekarang!).
+        </span>
+                    </div>
+                </div>
+
+                <!-- TAGLINE UTAMA -->
+                <h2
+                    style="margin-top: 55px; font-style: italic; font-weight: 400; letter-spacing: 0.5px; font-size: 1.5rem;">
+                    "Ada kemudahan... <span class="gold-text">itu pasti!</span>" 😉
+                </h2>
+
+                <!-- PREVIEW DIGITAL GALLERY (PLAYSTORE STYLE) -->
+                <div class="preview-section">
+                    <p style="font-size: 0.9rem; color: #A0A0A0; margin-bottom: 15px; font-weight: bold;">👀 SPILL TIPIS
+                        TIPIS ISI
+                        E-BOOK &amp; TEMPLATE:</p>
+
+                    <div class="playstore-gallery">
+                        <!-- 1. Video Cuplikan Scrolling Cepat -->
+                        <div class="preview-item" style="border-color: rgba(212, 175, 55, 0.4);">
+                            <video autoplay="" loop="" muted="" playsinline="">
+                                <source src="video-scrolling-cepat.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- 1. Video Cuplikan Scrolling Cepat -->
+                        <div class="preview-item" style="border-color: rgba(212, 175, 55, 0.4);">
+                            <video autoplay="" loop="" muted="" playsinline="">
+                                <source src="ilmunya.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- 2. Preview Gambar Cover -->
+                        <div class="preview-item"><img src="cover.png" alt="Preview Cover"></div>
+                        <!-- 3. Preview Gambar Konten Shortcut -->
+                        <div class="apaaja.png"><img src="apaaja.png" alt="Preview Apa Aja isinya"></div>
+                        <!-- 3. Preview Gambar Konten Shortcut -->
+                        <div class="cs1.png"><img src="cs1.png" alt="Preview Shortcut"></div>
+                        <!-- 4. Preview Gambar Template -->
+                        <div class="cs2.png"><img src="cs2.png" alt="Preview Template"></div>
+                        <!-- 5. Preview Gambar Template -->
+                        <div class="cs3.png"><img src="cs3.png" alt="Preview Template"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: QUOTES MOTIVASI -->
+            <section id="quotes" style="background: rgba(255, 255, 255, 0.01);">
+                <div class="quote-box">
+                    "Lelahlah berjuang hari ini dengan semangat menuntut ilmu, yakinlah selalu ada rezeki, walau
+                    diserang kemalasan, kegagalan berulang-ulang, tetaplah punya daya juang menggapai pendidikan tinggi
+                    karena
+                    <span class="gold-text">kamu punya ruang untuk berkembang</span> mengubah peluang menjadi uang💎"
+                </div>
+            </section>
+<section id="info-section"
+    style="margin: 30px auto; max-width: 800px; padding: 0 20px; font-family: 'Inter', 'Poppins', sans-serif;">
+
+    <!-- ================= KONTAINER A: DAFTAR FAQ ================= -->
+    <div id="container-faq" class="tab-content-panel active-panel"
+        style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- WHAT -->
+        <div class="faq-card-item">
+            <h3>❓ WHAT — Apa itu E-Book Formula Worth It?</h3>
+            <p>Sebuah panduan taktis berisi 99+ <i>MathAutoCorrect</i> list, 24 <i>keyboard shortcut</i> esensial MS
+                Word, dan metode <i>brain-aligned</i> untuk memotong waktu revisian dokumenmu menjadi hitungan detik
+                tanpa perlu menyentuh <i>mouse</i>.</p>
         </div>
 
-        <!-- TAGLINE UTAMA -->
-        <h2 style="margin-top: 55px; font-style: italic; font-weight: 400; letter-spacing: 0.5px; font-size: 1.5rem;">
-            "Ada kemudahan... <span class="gold-text">itu pasti!</span>" 😉
-        </h2>
-
-        <!-- PREVIEW DIGITAL GALLERY (PLAYSTORE STYLE) -->
-        <div class="preview-section">
-            <p style="font-size: 0.9rem; color: #A0A0A0; margin-bottom: 15px; font-weight: bold;">👀 SPILL TIPIS TIPIS ISI
-                E-BOOK & TEMPLATE:</p>
-
-            <div class="playstore-gallery">
-                <!-- 1. Video Cuplikan Scrolling Cepat -->
-                <div class="preview-item" style="border-color: rgba(212, 175, 55, 0.4);">
-                    <video autoplay loop muted playsinline>
-                        <source src="video-scrolling-cepat.mp4" type="video/mp4">
-                    </video>
-                </div>
-                                <!-- 1. Video Cuplikan Scrolling Cepat -->
-                <div class="preview-item" style="border-color: rgba(212, 175, 55, 0.4);">
-                    <video autoplay loop muted playsinline>
-                        <source src="ilmunya.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <!-- 2. Preview Gambar Cover -->
-                <div class="preview-item"><img src="cover.png" alt="Preview Cover"></div>
-                <!-- 3. Preview Gambar Konten Shortcut -->
-                                <div class="apaaja.png"><img src="apaaja.png" alt="Preview Apa Aja isinya"></div>
-                                <!-- 3. Preview Gambar Konten Shortcut -->
-                <div class="cs1.png"><img src="cs1.png" alt="Preview Shortcut"></div>
-                <!-- 4. Preview Gambar Template -->
-                <div class="cs2.png"><img src="cs2.png" alt="Preview Template"></div>
-                                <!-- 5. Preview Gambar Template -->
-                                <div class="cs3.png"><img src="cs3.png" alt="Preview Template"></div>
-            </div>
-
+        <!-- WHY -->
+        <div class="faq-card-item">
+            <h3>❓ WHY — Kenapa saya harus punya e-book ini?</h3>
+            <p>Karena waktu kuliahmu terlalu berharga untuk habis hanya karena mengurusi format dokumen yang berantakan,
+                spasi lompat, atau mengetik rumus manual secara berulang.</p>
         </div>
-    </section>
 
-    <!-- SLIDE 3: QUOTES MOTIVASI -->
-    <section id="quotes" style="background: rgba(255, 255, 255, 0.01);">
-        <div class="quote-box">
-            "Lelahlah berjuang hari ini dengan semangat menuntut ilmu, yakinlah selalu ada rezeki, walau diserang kemalasan, kegagalan berulang-ulang, tetaplah punya daya juang menggapai pendidikan tinggi karena
-            <span class="gold-text">kamu punya ruang untuk berkembang</span> mengubah peluang menjadi uang💎" 
+        <!-- WHO -->
+        <div class="faq-card-item">
+            <h3>❓ WHO — Siapa yang wajib membaca panduan ini?</h3>
+            <p>Seluruh mahasiswa, pejuang skripsi/tugas akhir, serta akademisi yang ingin bekerja cerdas, cepat, dan
+                anti-mumet di depan laptop.</p>
         </div>
-    </section>
 
-    <!-- SLIDE 4: MEMBER AREA (COMING SOON VIA EMAIL INFO) -->
-    <section id="member-area">
-        <div style="font-size: 3.5rem; margin-bottom: 10px;">🔐</div>
-        <h1>Member Area <span class="gold-text">MudaNgetik</span></h1>
-        <div class="badge-status">Akan Segera Hadir</div>
-        <p style="color: #CCCCCC;">
-            Tempat eksklusif  untukmu mengakses seluruh materi premium, update template otomatis, dan tutorial keren lainnya
-        </p>
-        <div class="info-box">
-            <p style="font-size: 0.9rem; color: #FFFFFF; margin: 0; line-height: 1.5;">
-                ℹ️ <b>Info Akses Login:</b><br>
-                Sistem autentikasi mandiri sedang disiapkan. Jika kamu sudah mendaftar melalui jalur <b>FREE</b> ataupun
-                <b>VIP</b>, pemberitahuan akun dan link login akan otomatis kami infokan secara berkala lewat
-                <b>Email resmi</b> begitu fiturnya siap diluncurkan!
+        <!-- WHEN -->
+        <div class="faq-card-item">
+            <h3>❓ WHEN — Kapan saya bisa mengakses materi ini?</h3>
+            <p>Jika kamu mengambil <b>Jalur VIP</b>, akses instan terbuka dalam 0,1 detik setelah pembayaran. Jika
+                mengambil <b>Jalur FREE</b>, akses unduhan serentak akan dibuka pada hari Minggu sesuai antrean sistem.
             </p>
         </div>
-    </section>
 
-    <!-- SLIDE 5: MEDIA SOSIAL & HUBUNGAN KOMUNITAS -->
-    <section id="community" style="background: linear-gradient(180deg, #0B132B 0%, #060A17 100%);">
-        <h1>Mari <span class="gold-text">Sukses Bareng</span></h1>
-        <p>Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda produktif lainnya di
-            ekosistem kami.</p>
-
-        <a href="https://chat.whatsapp.com/KYIgQN8Y6vvLt4TBRabHPf?s=cl&p=a&mlu=3&amv=0" target="_blank" class="btn"
-            style="background: #25D366; color: white; border: none; font-size: 1.1rem; padding: 14px 40px;">
-            🚀 Gabung Grup WA MudaNgetik
-        </a>
-
-        <div class="social-links">
-            <a href="https://instagram.com/mudangetik" target="_blank" class="social-btn">Instagram</a>
-            <a href="https://wa.me/6285748110997" target="_blank" class="social-btn">Hubungi Admin</
+        <!-- WHERE -->
+        <div class="faq-card-item">
+            <h3>❓ WHERE — Di mana saya bisa mengklaim kode voucher diskon?</h3>
+            <p>Cukup klik tombol <b>"Pakai Voucher"</b> di kartu VIP untuk langsung terhubung ke WhatsApp Admin dengan
+                kode khusus, lalu tebus jalur VIP dengan harga potongan ekstrem.</p>
         </div>
-    </section>
+
+        <!-- HOW -->
+        <div class="faq-card-item">
+            <h3>❓ HOW — Bagaimana e-book ini menjamin revisi saya lebih cepat?</h3>
+            <p>Melalui kombinasi pintasan kibor yang jarang diketahui orang dan optimalisasi fitur otomatisasi kata yang
+                langsung bisa kamu praktikkan saat itu juga.</p>
+        </div>
+
+        <!-- ATURAN LAYANAN MANDIRI -->
+        <div class="faq-card-item mandiri-border">
+            <h3>📢 Apakah setelah memiliki E-Book ini saya mendapatkan sesi bimbingan atau bebas konsul?</h3>
+            <p>
+                E-Book Formula Worth It dirancang sebagai panduan praktis yang
+                <b>bersifat mandiri (<i>self-paced learning</i>)</b>. Mengingat padatnya jadwal kesibukan tim
+                <i>MudaNgetik</i> di dunia profesional dan edukasi, kami tidak menyediakan sesi pendampingan ataupun
+                bebas konsultasi privat setelah pembelian.
+                <br><br>
+                Namun jangan khawatir! Seluruh materi, pintasan, dan metode di dalam panduan ini sudah disusun secara runtut, sangat detail, dan dilengkapi langkah konkret yang mudah dipahami, sehingga kamu dijamin bisa mempraktikkannya secara mandiri kapan saja.
+            </p>
+        </div>
+    </div>
+
+    <!-- ================= KONTAINER B: SOSIAL MEDIA (HUBUNGI KAMI) ================= -->
+    <div id="container-hubungi" class="tab-content-panel" style="display: none; flex-direction: column; gap: 20px;">
+        <div class="hubungi-card-item">
+            <h3>✨ Mari Sukses Bareng</h3>
+            <p style="color: #B0B3B8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
+                Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda produktif lainnya di circle <b>@mudangetik</b>. Hubungi kami melalui kanal resmi di bawah ini:
+            </p>
+
+            <!-- Grid Tombol Chat/Sosmed -->
+            <div
+                style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto; width: 100%;">
+                <a href="https://instagram.com/mudangetik" target="_blank" class="tab-socmed-btn ig-color">📸 Instagram
+                    @mudangetik</a>
+                <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20saya(Nama) %20mau%20klaim%20voucher%20diskon%20spesial%20E-book%20MudaNgetik%20untuk tebus murah 9K aja"
+                    target="_blank" class="tab-socmed-btn wa-color">💬 WhatsApp Admin</a>
+                <a href="https://t.me/bpqsleather23" target="_blank" class="tab-socmed-btn tele-color">📢 Telegram Community</a>
+
+
+</section>
+<script>
+function switchTab(tabName) {
+// 1. Hanya ambil elemen FAQ dan Hubungi Kami
+const navFaq = document.getElementById('nav-btn-faq');
+const navHubungi = document.getElementById('nav-btn-hubungi');
+
+const boxFaq = document.getElementById('container-faq');
+const boxHubungi = document.getElementById('container-hubungi');
+
+if (!boxFaq || !boxHubungi) return;
+
+// 2. Sembunyikan semua kontainer lokal
+boxFaq.style.setProperty('display', 'none', 'important');
+boxHubungi.style.setProperty('display', 'none', 'important');
+
+// 3. Reset kelas aktif
+if(navFaq) navFaq.classList.remove('active-nav');
+if(navHubungi) navHubungi.classList.remove('active-nav');
+
+// 4. Nyalakan tab lokal yang dipilih
+if (tabName === 'faq') {
+if(navFaq) navFaq.classList.add('active-nav');
+boxFaq.style.setProperty('display', 'flex', 'important');
+} else if (tabName === 'hubungi') {
+if(navHubungi) navHubungi.classList.add('active-nav');
+boxHubungi.style.setProperty('display', 'flex', 'important');
+}
+}
+</script>
+
 
 </body>
 
