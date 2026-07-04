@@ -338,14 +338,16 @@
             box-sizing: border-box;
             padding: 20px;
         }
-/* Slide 3: Quote Box */
-.quote-box {
-font-style: italic;
-font-size: 1.8rem;
-font-weight: 300;
-max-width: 700px;
-line-height: 1.5;
-}
+
+        /* Slide 3: Quote Box */
+        .quote-box {
+            font-style: italic;
+            font-size: 1.8rem;
+            font-weight: 300;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+
         /* Jaga agar susunan kartu tetap rapi berjejer */
         .pembungkus-kartu {
             display: flex;
@@ -353,44 +355,126 @@ line-height: 1.5;
             flex-wrap: wrap;
             gap: 20px;
         }
-.social-links {
-display: flex;
-gap: 15px;
-margin-top: 30px;
-}
 
-.social-btn {
-color: #FFFFFF;
-text-decoration: none;
-border: 1px solid rgba(255, 255, 255, 0.3);
-padding: 8px 24px;
-border-radius: 20px;
-transition: 0.3s;
-font-size: 0.9rem;
-}
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
 
-.social-btn:hover {
-background: #FFFFFF;
-color: #0B132B;
-border-color: #FFFFFF;
-}
+        .social-btn {
+            color: #FFFFFF;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 24px;
+            border-radius: 20px;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
 
-/* Animasi Logo Mengambang */
-@keyframes float {
-0% {
-transform: translateY(0px);
-}
+        .social-btn:hover {
+            background: #FFFFFF;
+            color: #0B132B;
+            border-color: #FFFFFF;
+        }
 
-50% {
-transform: translateY(-10px);
-}
+        /* Animasi Logo Mengambang */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
 
-100% {
-transform: translateY(0px);
-}
-}
+            50% {
+                transform: translateY(-10px);
+            }
 
-        …
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Container Utama FAQ */
+        /* Container Utama FAQ */
+        .faq-container {
+            width: 100%;
+            max-width: 680px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-family: 'Garamond', 'Georgia', serif;
+        }
+
+        /* Judul Bagian FAQ */
+        .faq-title {
+            text-align: center;
+            color: #0d1b2a;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Kartu FAQ Putih */
+        .faq-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: left;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        /* Saat FAQ dibuka, kasih border biru tipis biar elegan */
+        .faq-item[open] {
+            border-color: #0d1b2a;
+        }
+
+        /* Pertanyaan */
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a202c;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+        }
+
+        .faq-question::-webkit-details-marker {
+            display: none;
+            /* Hilangkan panah default safari */
+        }
+
+        /* Tombol Dropdown */
+        .faq-toggle-btn {
+            background: transparent;
+            border: none;
+            color: #a0aec0;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        /* Animasi putar panah pas diklik */
+        .faq-item[open] .faq-toggle-btn {
+            transform: rotate(180deg);
+            color: #0d1b2a;
+        }
+
+        /* Jawaban */
+        .faq-answer {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #edf2f7;
+            color: #4a5568;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .faq-answer p {
+            margin: 8px 0;
+        }
     </style>
 
 
@@ -406,9 +490,8 @@ transform: translateY(0px);
     <div class="nav-container-premium">
         <!-- Bagian Kiri: Menu FAQ & Hubungi Kami -->
         <div class="nav-links-left">
-            <a href="#info-section" id="nav-btn-faq" class="nav-link-item" onclick="switchTab('faq')">FAQ</a>
-            <a href="#info-section" id="nav-btn-hubungi" class="nav-link-item active-nav"
-                onclick="switchTab('hubungi')">Hubungi Kami</a>
+            <a href="#info-section" id="nav-btn-faq" class="nav-link-item active-nav" onclick="switchTab('faq')">FAQ</a>
+            <a href="#info-section" id="nav-btn-hubungi" class="nav-link-item" onclick="switchTab('hubungi')">Hubungi Kami</a>
         </div>
         <!-- Bagian Kanan: Sakelar Member Area -->
         <div class="nav-member-right">
@@ -417,6 +500,11 @@ transform: translateY(0px);
                 Zone</a>
         </div>
     </div>
+            <div class="nav-member-right">
+                <!-- Membuka halaman memberarea di tab baru secara internal -->
+                <a href="unduhan" target="_blank" id="nav-btn-member" class="nav-link-item btn-member-area">📂Unduh Produk </a>
+            </div>
+            </div>
 
 
     <!-- SLIDE 1: WELCOME & FEATURE HOOK -->
@@ -476,7 +564,7 @@ transform: translateY(0px);
                 </div>
 
                 <!-- TAGLINE UTAMA -->
-                <h2 style="margin-top: 55px;font-style: italic;font-weight: 400;letter-spacing: 0.5px;font-size: 2rem;">
+                <h2 style="margin-top: 55px;font-style: italic;font-weight: 400;letter-spacing: 0.5px;font-size: 5rem;">
                     "Ada kemudahan... <span class="gold-text">itu pasti!</span>" 😉
                 </h2>
 
@@ -526,110 +614,132 @@ transform: translateY(0px);
                 style="margin: 30px auto; max-width: 800px; padding: 0 20px; font-family: 'Inter', 'Poppins', sans-serif;">
 
                 <!-- ================= KONTAINER A: DAFTAR FAQ ================= -->
-                <div id="container-faq" class="tab-content-panel active-panel"
-                    style="display: none !important; flex-direction: column; gap: 20px;">
-                    <!-- WHAT -->
-                    <div class="faq-card-item">
-                        <h3>❓ WHAT — Apa itu E-Book Formula Worth It?</h3>
-                        <p>Sebuah panduan taktis berisi 99+ <i>MathAutoCorrect</i> list, 24 <i>keyboard shortcut</i>
-                            esensial MS
-                            Word, dan metode <i>brain-aligned</i> untuk memotong waktu revisian dokumenmu menjadi
-                            hitungan detik
-                            tanpa perlu menyentuh <i>mouse</i>.</p>
-                    </div>
+                <div class="faq-container">
+                    <h2 class="faq-title">Frequently Asked Questions (FAQ)</h2>
 
-                    <!-- WHY -->
-                    <div class="faq-card-item">
-                        <h3>❓ WHY — Kenapa saya harus punya e-book ini?</h3>
-                        <p>Karena waktu kuliahmu terlalu berharga untuk habis hanya karena mengurusi format dokumen yang
-                            berantakan,
-                            spasi lompat, atau mengetik rumus manual secara berulang.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            E-Book Formula Worth It itu apa sih?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_1&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Sebuah panduan yang berisi 99+ MathAutoCorrect list, 24 keyboard shortcut Penyelamat
+                                Waktu Revisimu, dan All Keyboard shortcut MS Word.</p>
+                        </div>
+                    </details>
 
-                    <!-- WHO -->
-                    <div class="faq-card-item">
-                        <h3>❓ WHO — Siapa yang wajib membaca panduan ini?</h3>
-                        <p>Seluruh mahasiswa, pejuang skripsi/tugas akhir, serta akademisi yang ingin bekerja cerdas,
-                            cepat, dan
-                            anti-mumet di depan laptop.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Yakin masih menunda buat punya ini?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_2&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Waktu kuliahmu terlalu berharga teman untuk habis hanya karena mengurusi format dokumen
+                                yang berantakan, spasi lompat-lompat, atau mengetik rumus/persamaan secara berulang.</p>
+                        </div>
+                    </details>
 
-                    <!-- WHEN -->
-                    <div class="faq-card-item">
-                        <h3>❓ WHEN — Kapan saya bisa mengakses materi ini?</h3>
-                        <p>Jika kamu mengambil <b>Jalur VIP</b>, akses instan terbuka dalam 0,1 detik setelah
-                            pembayaran. Jika
-                            mengambil <b>Jalur FREE</b>, akses unduhan serentak akan dibuka pada hari Minggu sesuai
-                            antrean sistem.
-                        </p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Siapa yang relate?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_3&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Seluruh pelajar, mahasiswa, pejuang skripsi/tugas akhir, serta akademisi yang ingin
+                                bekerja cerdas, cepat, dan anti-pusing di depan laptop.</p>
+                        </div>
+                    </details>
 
-                    <!-- WHERE -->
-                    <div class="faq-card-item">
-                        <h3>❓ WHERE — Di mana saya bisa mengklaim kode voucher diskon?</h3>
-                        <p>Cukup klik tombol <b>"Pakai Voucher"</b> di kartu VIP untuk langsung terhubung ke WhatsApp
-                            Admin dengan
-                            kode khusus, lalu tebus jalur VIP dengan harga potongan ekstrem.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Aksesnya diberikan, kapan?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_4&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Jika kamu mengambil <strong>Jalur VIP</strong>, akses instan terbuka dalam 0,1 detik
+                                setelah berbagi rezeki. Jika mengambil <strong>Jalur FREE</strong>, akses unduhan
+                                serentak hanya akan dibuka pada hari Minggu sesuai waiting list.</p>
+                        </div>
+                    </details>
 
-                    <!-- HOW -->
-                    <div class="faq-card-item">
-                        <h3>❓ HOW — Bagaimana e-book ini menjamin revisi saya lebih cepat?</h3>
-                        <p>Melalui kombinasi pintasan kibor yang jarang diketahui orang dan optimalisasi fitur
-                            otomatisasi kata yang
-                            langsung bisa kamu praktikkan saat itu juga.</p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Bisa dipakai di mana, ada diskon nggak?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_5&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Bisa digunakan pada <strong>Windows sistem</strong>.</p>
+                            <p>Ada diskon! Cukup klik tombol "Pakai Voucher" di kartu VIP untuk langsung terhubung ke
+                                WhatsApp Admin dengan kode khusus, lalu tebus jalur VIP dengan harga potongan ekstrem.
+                            </p>
+                        </div>
+                    </details>
 
-                    <!-- ATURAN LAYANAN MANDIRI -->
-                    <div class="faq-card-item mandiri-border">
-                        <h3>📢 Apakah setelah memiliki E-Book ini saya mendapatkan sesi bimbingan atau bebas konsul?
-                        </h3>
-                        <p>
-                            E-Book Formula Worth It dirancang sebagai panduan praktis yang
-                            <b>bersifat mandiri (<i>self-paced learning</i>)</b>. Mengingat padatnya jadwal kesibukan
-                            tim
-                            <i>MudaNgetik</i> di dunia profesional dan edukasi, kami tidak menyediakan sesi pendampingan
-                            ataupun
-                            bebas konsultasi privat setelah pembelian.
-                            <br><br>
-                Namun jangan khawatir! Seluruh materi, pintasan, dan metode di dalam panduan ini sudah disusun secara runtut, sangat detail, dan dilengkapi langkah konkret yang mudah dipahami, sehingga kamu dijamin bisa mempraktikkannya secara mandiri kapan saja.
-                        </p>
-                    </div>
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Kok bisa ini menjamin revisi saya lebih cepat?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_6&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Melalui kombinasi keyboard shortcut penyelamat waktu revisi dan kuasai dokumen di layar
+                                kerjamu tanpa menyentuh mouse (all keyboard shortcut MS Word).</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            Apa ada sesi konsultasi?
+                            <button class="faq-toggle-btn" data-tracking-event-type="landing_page__core__item_click" data-tracking-context="{&quot;product_name&quot;: &quot;ruangguru&quot;, &quot;cta_action&quot;: &quot;dropdown&quot;, &quot;cta_action_detail&quot;: &quot;dropdown_faq_7&quot;}">▼</button>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>E-Book Formula Worth It dirancang sebagai panduan praktis yang bersifat mandiri).</p>
+                            <p>Mengingat padatnya jadwal tim mudangetik dengan produktivitas sebagai pengajar, kami
+                                tidak menyediakan layanan privat atau konsultasi.</p>
+                            <p>Namun jangan khawatir! Seluruh materi, pintasan, dan panduan di dalam ebook Formula Worth
+                                It ini sudah disusun secara runtut,di desain agar mudah dipahami dan senang dipelajari,
+                                sehingga kamu dijamin bisa mempraktikkannya secara mandiri kapan saja.</p>
+                        </div>
+                    </details>
                 </div>
+                <div class="footer__year">
+                    <p class="font-base-footer font-white font-bold center">
+                        ©2026
+                        <span id="full-year"></span>
+                        mudangetik
+                    </p>
+                </div>
+
 
                 <!-- ================= KONTAINER B: SOSIAL MEDIA (HUBUNGI KAMI) ================= -->
-                <div id="container-hubungi" class="tab-content-panel"
-                    style="display: flex !important; flex-direction: column; gap: 20px;">
-                    <div class="hubungi-card-item">
-                        <h3>✨ Mari Sukses Bareng</h3>
-                        <p style="color: #B0B3B8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
-                            Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda
-                            produktif lainnya di circle <b>@mudangetik</b>. Hubungi kami melalui kanal resmi di bawah
-                            ini:
-                        </p>
-
-                        <!-- Grid Tombol Chat/Sosmed -->
-                        <div
-                            style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto; width: 100%;">
-                            <a href="https://instagram.com/mudangetik" target="_blank"
-                                class="tab-socmed-btn ig-color">📸 Instagram
-                                @mudangetik</a>
-                            <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20saya(Nama) %20mau%20klaim%20voucher%20diskon%20spesial%20E-book%20MudaNgetik%20untuk tebus murah 9K aja"
-                                target="_blank" class="tab-socmed-btn wa-color">💬 WhatsApp Admin</a>
-                            <a href="https://t.me/bpqsleather23" target="_blank" class="tab-socmed-btn tele-color">📢
-                                Telegram Community</a>
-<div class="footer__year">
-    <p class="font-base-footer font-white font-bold center">
-        ©2026
-        <span id="full-year"></span>
-        mudangetik
+<section id="hubungi-kami" class="contact-section">
+    <h2 class="contact-title">✨ Mari Sukses Bareng</h2>
+    <p class="contact-subtitle">
+        Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda produktif lainnya di circle
+        @mudangetik. Hubungi kami melalui kanal resmi di bawah ini:
     </p>
-</div>
-</div>
 
+    <!-- Daftar Link Kanal Resmi -->
+    <div class="contact-links">
+        <a href="https://instagram.com/mudangetik" class="contact-item" target="_blank">
+            📸 Instagram @mudangetik
+        </a>
+        <a href="https://wa.me/6285748110997" class="contact-item" target="_blank">
+            💬 WhatsApp Admin
+        </a>
+        <a href="https://t.me/bpqsleather23" class="contact-item" target="_blank">
+            📢 Telegram Community
+        </a>
+    </div>
+                                    ©2026 mudangetik
+                                    <span id="full-year"></span>
+                                    
+                                </p>
+                            </div>
                         </div>
+
                     </div>
                 </div>
+
             </section>
             <script>
                 function switchTab(tabName) {
@@ -663,6 +773,9 @@ boxHubungi.style.setProperty('display', 'flex', 'important');
             </script>
         </h1>
     </section>
+
+
+
 </body>
 
 </html>
