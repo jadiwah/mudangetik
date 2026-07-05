@@ -8,13 +8,136 @@
         html {
             scroll-behavior: smooth;
         }
+/* Styling Banner Promo Paling Atas */
+.promo-banner-top {
+width: 100%;
+background: linear-gradient(90deg, #03045e 0%, #0077b6 50%, #03045e 100%);
+color: #ffffff;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 5%;
+box-sizing: border-box;
+font-family: 'Garamond', Tahoma, Geneva, Verdana, sans-serif;
+box-shadow: 0 4px 15px rgba(0, 119, 182, 0.25);
+z-index: 9999;
+position: relative;
+}
 
-        /* Warna teks emas menyala saat tab FAQ / Hubungi Kami aktif */
-        .nav-link-item.active-nav {
-            color: #D4AF37 !important;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
-        }
+/* Flexbox untuk konten teks di kiri */
+.banner-content {
+display: flex;
+align-items: center;
+gap: 30px;
+}
 
+
+
+/* Pengatur susunan teks */
+.banner-text {
+margin: 0;
+font-size: 2rem;
+line-height: 1.4;
+color: #F6C80E
+}
+
+.banner-subtext {
+display: block;
+font-size: 1rem;
+color: #e0f2fe;
+margin-top: 2px;
+}
+
+/* Tombol Oranye "Klaim Sekarang" di Sisi Kanan */
+.banner-btn {
+background-color: #fb8500; /* Oranye terang mencolok */
+color: #ffffff;
+text-decoration: none;
+font-weight: bold;
+font-size: 0.9rem;
+padding: 8px 18px;
+border-radius: 20px;
+white-space: nowrap; /* Mencegah tombol patah kata di layar kecil */
+box-shadow: 0 4px 10px rgba(251, 133, 0, 0.3);
+transition: all 0.2s ease;
+}
+
+/* Efek hover tombol */
+.banner-btn:hover {
+background-color: #ffb703;
+color: #023047;
+transform: scale(1.03);
+}
+
+/* RESPONSIVE: Pengaturan untuk Tampilan Layar HP */
+@media (max-width: 768px) {
+.promo-banner-top {
+flex-direction: column;
+text-align: center;
+gap: 12px;
+padding: 15px;
+}
+.banner-content {
+flex-direction: column;
+gap: 8px;
+}
+.banner-btn {
+width: 100%;
+text-align: center;
+}
+}
+/* Container Utama Navigasi (Paling Atas) */
+.navbar-container {
+width: 100%;
+display: flex;
+justify-content: space-between; /* KUNCI UTAMA: Mendorong menu ke kiri dan tombol ke kanan */
+align-items: center; /* Menjaga semua teks & tombol sejajar lurus secara vertikal */
+padding: 20px 5%; /* Jarak aman dari tepi layar kanan-kiri */
+box-sizing: border-box;
+background-color: transparent; /* Menyesuaikan background off-white kamu */
+}
+
+/* Kelompok Menu Sebelah Kiri */
+.nav-links {
+display: flex;
+gap: 20px; /* Jarak antara tulisan FAQ dan Hubungi Kami */
+}
+
+.nav-links a {
+text-decoration: none;
+color: #0d1b2a;
+font-weight: 600;
+font-size: 1rem;
+}
+
+/* Kelompok Tombol Sebelah Kanan (Login & Unduh) */
+.nav-buttons {
+display: flex;
+align-items: center;
+gap: 12px; /* Jarak antara tombol Login Zone dan Unduh Produk */
+}
+
+/* Desain Tombol Kapsul */
+.btn-nav {
+display: inline-flex;
+align-items: center;
+padding: 8px 16px;
+border-radius: 20px;
+font-family: 'Segoe UI', sans-serif;
+font-size: 0.9rem;
+font-weight: bold;
+text-decoration: none;
+color: #ffffff;
+background-color: #0d1b2a; /* Warna navy gelap */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+white-space: nowrap; /* Biar teks tombol gak patah kebawah */
+transition: all 0.2s ease;
+}
+
+.btn-nav:hover {
+transform: translateY(-1px);
+opacity: 0.9;
+}
         /* Perubahan tombol Member Area saat tab Member aktif */
         .btn-member-area.active-member {
             background: #0F172A !important;
@@ -69,24 +192,7 @@
             text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
         }
 
-        /* Penyelaras Tombol Member Area Kanan agar Tetap Presisi Melengkung */
-        .btn-member-area {
-            display: inline-block;
-            background: #1E293B;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            transition: all 0.3s;
-        }
 
-        .btn-member-area:hover {
-            background: #0F172A;
-            border-color: #D4AF37;
-        }
 
         /* Responsif Mobile: Jika dibuka di HP, menu tetap sejajar rapi */
         @media (max-width: 600px) {
@@ -177,10 +283,10 @@
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             max-width: 600px;
             line-height: 1.6;
-            color: #E0E0E0;
+            color: #09172e;
         }
 
         /* ==========================================================================
@@ -431,9 +537,9 @@
 
         /* Pertanyaan */
         .faq-question {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            color: #1a202c;
+            color: #081252;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -475,6 +581,36 @@
         .faq-answer p {
             margin: 8px 0;
         }
+        /* Desain Footer Premium ala Ruangguru */
+        .ruang-footer {
+        width: 100%;
+        background-color: #0b132b; /* Warna navy tua solid mirip contoh Ruangguru */
+        padding: 25px 0; /* Memberikan ruang vertikal agar tidak terlalu tipis */
+        margin-top: 60px; /* Jarak pemisah dari section konten di atasnya */
+        display: flex;
+        justify-content: center; /* Memaksa teks berada di tengah secara horizontal */
+        align-items: center;
+        box-sizing: border-box;
+        }
+        
+        .footer-content {
+        color: #ffffff; /* Warna teks putih murni */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font modern sans-serif */
+        font-size: 0.85rem; /* Ukuran teks kecil proporsional */
+        font-weight: 600; /* Sedikit tebal agar tegas seperti contoh */
+        letter-spacing: 0.5px; /* Jarak renggang antar huruf agar estetik */
+        opacity: 0.9; /* Transparansi tipis agar tidak terlalu mencolok */
+        text-align: center;
+        }
+        
+        /* Memastikan footer mengambil seluruh lebar layar jika pembungkus atasnya flex */
+        body {
+        display: flex;
+        flex-direction: column;
+        }
+        .ruang-footer {
+        margin-top: auto; /* Trik agar footer otomatis nempel di paling bawah halaman jika konten sedikit */
+        }
     </style>
 
 
@@ -487,24 +623,29 @@
 
     <!-- NAVIGASI DAERAH MEMBER -->
     <!-- NAVIGASI UTAMA SEJAJAR -->
-    <div class="nav-container-premium">
-        <!-- Bagian Kiri: Menu FAQ & Hubungi Kami -->
-        <div class="nav-links-left">
-            <a href="#info-section" id="nav-btn-faq" class="nav-link-item active-nav" onclick="switchTab('faq')">FAQ</a>
-            <a href="#info-section" id="nav-btn-hubungi" class="nav-link-item" onclick="switchTab('hubungi')">Hubungi Kami</a>
+    <div class="promo-banner-top">
+        <div class="banner-content">
+            </span>
+            <p class="banner-text">
+                <strong>⚡ GRADUATION ANNIVERSARY DISKON JALUR VIP up to 50%!</strong>
+                <span class="banner-subtext">Periode: Awal Juli 2026 |Segera Amankan, Voucher Terbatas</span>
+            </p>
         </div>
-        <!-- Bagian Kanan: Sakelar Member Area -->
-        <div class="nav-member-right">
-            <!-- Membuka halaman memberarea di tab baru secara internal -->
-            <a href="memberzone" target="_blank" id="nav-btn-member" class="nav-link-item btn-member-area">🔐 Login
-                Zone</a>
-        </div>
+        <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20Saya (nama) mau%20minta%20Kode%20Voucher%20MudaNgetik%20dong%20biar%20bisa%20tebus%209K%21" class="banner-btn">Klaim Sekarang ➔</a>
     </div>
-            <div class="nav-member-right">
-                <!-- Membuka halaman memberarea di tab baru secara internal -->
-                <a href="unduhan" target="_blank" id="nav-btn-member" class="nav-link-item btn-member-area">📂Unduh Produk </a>
-            </div>
-            </div>
+    <nav class="navbar-container">
+        <!-- Kelompok Kiri: Rata Kiri -->
+        <div class="nav-links">
+            <a href="#info-section" id="nav-btn-faq" class="nav-link-item active-nav" onclick="switchTab('faq')">FAQ</a>
+        <a href="#info-section" id="nav-btn-hubungi" class="nav-link-item" onclick="switchTab('hubungi')">Hubungi Kami</a>
+        </div>
+    
+        <!-- Kelompok Kanan: Rata Kanan Paling Atas -->
+        <div class="nav-buttons">
+            <a href="#memberzone" class="btn-nav btn-login">🔐 Login Zone</a>
+            <a href="unduhan" class="btn-nav btn-unduh">📁 Unduh Produk</a>
+        </div>
+    </nav>
 
 
     <!-- SLIDE 1: WELCOME & FEATURE HOOK -->
@@ -693,56 +834,45 @@
                         </summary>
                         <div class="faq-answer">
                             <p>E-Book Formula Worth It dirancang sebagai panduan praktis yang bersifat mandiri).</p>
-                            <p>Mengingat padatnya jadwal tim mudangetik dengan produktivitas sebagai pengajar, kami
-                                tidak menyediakan layanan privat atau konsultasi.</p>
-                            <p>Namun jangan khawatir! Seluruh materi, pintasan, dan panduan di dalam ebook Formula Worth
-                                It ini sudah disusun secara runtut,di desain agar mudah dipahami dan senang dipelajari,
+                            <p> dengan produktivitas sebagai pengajar Fisika, tidak tersedia layanan privat atau konsultasi untuk ebook ini.</p>
+                            <p>Namun jangan khawatir! Seluruh materi, pintasan, dan panduan di dalam ebook Formula Worth It ini sudah disusun secara runtut,di desain agar mudah dipahami dan senang dipelajari,
                                 sehingga kamu dijamin bisa mempraktikkannya secara mandiri kapan saja.</p>
                         </div>
                     </details>
                 </div>
-                <div class="footer__year">
-                    <p class="font-base-footer font-white font-bold center">
-                        ©2026
-                        <span id="full-year"></span>
-                        mudangetik
-                    </p>
-                </div>
+
 
 
                 <!-- ================= KONTAINER B: SOSIAL MEDIA (HUBUNGI KAMI) ================= -->
-<section id="hubungi-kami" class="contact-section">
-    <h2 class="contact-title">✨ Mari Sukses Bareng</h2>
-    <p class="contact-subtitle">
-        Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda produktif lainnya di circle
-        @mudangetik. Hubungi kami melalui kanal resmi di bawah ini:
-    </p>
+                <section id="hubungi-kami" class="contact-section">
+                    <h2 class="contact-title">✨ Mari Sukses Bareng</h2>
+                    <p class="contact-subtitle">
+                        Pantau terus update fitur template, tips produktivitas kilat, dan gerakan anak muda produktif lainnya di circle @mudangetik.  Mudahnya hubungi kami:
+                    </p>
 
-    <!-- Daftar Link Kanal Resmi -->
-    <div class="contact-links">
-        <a href="https://instagram.com/mudangetik" class="contact-item" target="_blank">
-            📸 Instagram @mudangetik
-        </a>
-        <a href="https://wa.me/6285748110997" class="contact-item" target="_blank">
-            💬 WhatsApp Admin
-        </a>
-        <a href="https://t.me/bpqsleather23" class="contact-item" target="_blank">
-            📢 Telegram Community
-        </a>
-    </div>
-                                    ©2026 mudangetik
-                                    <span id="full-year"></span>
-                                    
-                                </p>
-                            </div>
+                    <!-- Daftar Link Kanal Resmi -->
+                    <div class="contact-links">
+                        <a href="https://instagram.com/mudangetik" class="contact-item" target="_blank">
+                            📸 Instagram @mudangetik
+                        </a>
+                        <a href="https://wa.me/6285748110997" class="contact-item" target="_blank">
+                            💬 WhatsApp Admin
+                        </a>
+                        <a href="https://t.me/bpqsleather23" class="contact-item" target="_blank">
+                            📢 Telegram Community
+                        </a>
                         </div>
+                        </section>
+                    <p></p>
 
-                    </div>
-                </div>
 
-            </section>
-            <script>
-                function switchTab(tabName) {
+
+
+
+
+                </section>
+                <script>
+                    function switchTab(tabName) {
 // 1. Hanya ambil elemen FAQ dan Hubungi Kami
 const navFaq = document.getElementById('nav-btn-faq');
 const navHubungi = document.getElementById('nav-btn-hubungi');
@@ -770,9 +900,17 @@ boxHubungi.style.setProperty('display', 'flex', 'important');
 }
 }
 
-            </script>
+                </script>
+            </section>
         </h1>
     </section>
+                        <footer class="ruang-footer">
+                            <div class="footer-content">
+                                © 2026 MudaNgetik. All Rights Reserved.
+                            </div>
+                        </footer>
+
+
 
 
 
