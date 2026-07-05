@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Unduh Mindmap | MudaNgetik</title>
+    <style>
+    /* --- RESET DASAR & BACKGROUND PLATFORM --- */
+    body {
+    background: linear-gradient(180deg, #f2f5fa 0%, #ffffff 100%) !important;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    }
+    
+    /* --- 1. CSS BANNER PROMOSI GAMBAR (MEMBENTANG PENUH) --- */
+.promo-banner-top {
+width: 100%;
+background: linear-gradient(90deg, #03045e 0%, #0077b6 50%, #03045e 100%);
+color: #ffffff;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 5%;
+box-sizing: border-box;
+font-family: 'Garamond', Tahoma, Geneva, Verdana, sans-serif;
+box-shadow: 0 4px 15px rgba(0, 119, 182, 0.25);
+z-index: 9999;
+position: relative;
+}
+
+/* Flexbox untuk konten teks di kiri */
+.banner-content {
+display: flex;
+align-items: center;
+gap: 30px;
+}
+
+
+
+/* Pengatur susunan teks */
+.banner-text {
+margin: 0;
+font-size: 2rem;
+line-height: 1.4;
+color: #F6C80E
+}
+
+.banner-subtext {
+display: block;
+font-size: 1rem;
+color: #e0f2fe;
+margin-top: 2px;
+}
+
+/* Tombol Oranye "Klaim Sekarang" di Sisi Kanan */
+.banner-btn {
+background-color: #fb8500; /* Oranye terang mencolok */
+color: #ffffff;
+text-decoration: none;
+font-weight: bold;
+font-size: 0.9rem;
+padding: 8px 18px;
+border-radius: 20px;
+white-space: nowrap; /* Mencegah tombol patah kata di layar kecil */
+box-shadow: 0 4px 10px rgba(251, 133, 0, 0.3);
+transition: all 0.2s ease;
+}
+
+/* Efek hover tombol */
+.banner-btn:hover {
+background-color: #ffb703;
+color: #023047;
+transform: scale(1.03);
+}
+
+/* RESPONSIVE: Pengaturan untuk Tampilan Layar HP */
+@media (max-width: 768px) {
+.promo-banner-top {
+flex-direction: column;
+text-align: center;
+gap: 12px;
+padding: 15px;
+}
+.banner-content {
+flex-direction: column;
+gap: 8px;
+}
+.banner-btn {
+width: 100%;
+text-align: center;
+}
+}
+    
+    /* --- 2. CSS HEADER NAVIGASI (RATA KANAN-KIRI) --- */
+    .navbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    
+    .nav-links {
+    display: flex;
+    gap: 20px;
+    }
+    
+    .nav-links a {
+    text-decoration: none;
+    color: #0d1b2a;
+    font-weight: 600;
+    font-size: 1rem;
+    }
+    
+    .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    }
+    
+    .btn-nav {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #0d1b2a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    }
+    
+    .btn-nav:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+    }
+    
+    /* --- 3. CSS KONTEN UTAMA & GRID DOWNLOAD --- */
+    .download-page-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    box-sizing: border-box;
+    flex: 1;
+    }
+    
+    .page-header {
+    text-align: center;
+    margin-bottom: 50px;
+    }
+    
+    .page-header h1 {
+    color: #0d1b2a;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+    }
+    
+    .page-header p {
+    color: #4a5568;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    }
+    
+    .download-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+    }
+    
+    .grid-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .grid-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(13, 27, 42, 0.08);
+    }
+    
+    .box-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    }
+    
+    .grid-box h3 {
+    color: #0d1b2a;
+    font-size: 1.4rem;
+    margin: 10px 0;
+    }
+    
+    .grid-box p {
+    color: #718096;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    }
+    
+    .btn-download {
+    display: block;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    }
+    
+    .btn-word { background-color: #0d1b2a; }
+    .btn-pdf { background-color: #e63946; }
+    
+    .btn-download:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+    }
+    
+    /* --- VIDEO PREVIEW BESAR --- */
+    .video-preview-section {
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 50px;
+    }
+    
+    .video-preview-section h2 {
+    color: #0d1b2a;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    }
+    
+    .section-subtitle {
+    color: #718096;
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 0 auto 30px auto;
+    }
+    
+    .video-frame-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    }
+    
+    .large-preview-video {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    }
+    
+    /* --- 4. CSS FOOTER PREMIUM (BERDIRI SENDIRI) --- */
+    .ruang-footer {
+    width: 100%;
+    background-color: #0b132b;
+    padding: 25px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: auto;
+    }
+    
+    .footer-content {
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    }
+    
+    /* --- RESPONSIVE MOBILE --- */
+    @media (max-width: 768px) {
+    .navbar-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    }
+    .download-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    }
+    .large-preview-video {
+    max-width: 100%;
+    }
+    }
+        </style>
+</head>
+
+<body>
+
+    <!-- ==================== 1. BANNER PROMOSI GAMBAR (PALING ATAS) ==================== -->
+<div class="promo-banner-top">
+    <div class="banner-content">
+        </span>
+        <p class="banner-text">
+            <strong>⚡ GRADUATION ANNIVERSARY GET EBOOK VIP up to 50%!</strong>
+            <span class="banner-subtext">Periode: Awal Juli 2026 |Segera Amankan, Voucher Terbatas</span>
+        </p>
+    </div>
+    <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20Saya (nama) mau%20minta%20Kode%20Voucher%20MudaNgetik%20dong%20biar%20bisa%20tebus%209K%21"
+        class="banner-btn">Klaim Sekarang ➔</a>
+</div>
+
+    <!-- ==================== 2. HEADER NAVIGASI ==================== -->
+    <nav class="navbar-container">
+        <!-- Kelompok Kiri -->
+        <div class="nav-links">
+<a href="#info-section" id="nav-btn-faq" class="nav-link-item active-nav" onclick="switchTab('faq')">FAQ</a>
+<a href="#info-section" id="nav-btn-hubungi" class="nav-link-item" onclick="switchTab('hubungi')">Hubungi Kami</a>
+        </div>
+
+        <!-- Kelompok Kanan -->
+        <div class="nav-buttons">
+            <a href="memberzone" class="btn-nav btn-login">🔐 Login Zone</a>
+         
+        </div>
+    </nav>
+
+    <!-- ==================== 3. KONTEN UTAMA ==================== -->
+    <main class="download-page-container">
+
+        <!-- JUDUL HALAMAN -->
+        <header class="page-header">
+            <h1>Zone Unduh Mind Map</h1>
+        </header>
+
+        <!-- GRID BOX SEJAJAR (UNDUH FILE) -->
+        <section class="download-grid">
+
+            <!-- Box Versi Microsoft Word -->
+            <div class="grid-box">
+                <div class="box-icon">📝</div>
+                <h3>Mind Map Versi Word</h3>
+                <p>Format .docx yang sepenuhnya bisa kamu edit, sesuaikan warna, dan ubah teksnya secara mandiri.</p>
+                <a href="https://docs.google.com/document/d/1JxkldhPWjgPV_mVrklDP6Y-U7Lglc0cu/export?format=docx" class="btn-download btn-word"
+                    data-tracking-event-type="landing_page__core__item_click"
+                    data-tracking-context='{"product_name": "mindmap", "cta_action": "download", "cta_action_detail": "download_word_version"}'>
+                    Unduh Dokumen Word
+                </a>
+            </div>
+
+            <!-- Box Versi PDF -->
+            <div class="grid-box">
+                <div class="box-icon">📕</div>
+                <h3>Mind Map Versi PDF</h3>
+                <p>Format siap cetak dengan resolusi tajam, cocok untuk disimpan di tablet atau diprint langsung.</p>
+                <a href="https://drive.google.com/uc?export=download&id=1cyDZVGIN-Pv02R-ZOPntBgPBAdDMBp2f" class="btn-download btn-pdf"
+                    data-tracking-event-type="landing_page__core__item_click"
+                    data-tracking-context='{"product_name": "mindmap", "cta_action": "download", "cta_action_detail": "download_pdf_version"}'>
+                    Unduh File PDF
+                </a>
+            </div>
+
+        </section>
+
+        <!-- AREA PENYEMATAN VIDEO WALKTHROUGH -->
+        <section class="video-preview-section">
+            <h2>Simak Video Mind Map Colorful</h2>
+            <p class="section-subtitle">Tonton bagaimana mengoptimalkan visualisasi mind map agar tampak menarik.</p>
+
+            <div class="video-frame-wrapper">
+                <video controls class="large-preview-video">
+                    <source src="ilmunya.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung pemutar video HTML5.
+                </video>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== 4. FOOTER PREMIUM ==================== -->
+    <footer class="ruang-footer">
+        <div class="footer-content">
+            © 2026 MudaNgetik. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+
+</html>
