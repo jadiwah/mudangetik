@@ -3292,9 +3292,101 @@ div.WordSection1
 ul
 	{margin-bottom:0cm;}
 -->
+    /* --- 1. CSS BANNER PROMOSI GAMBAR (MEMBENTANG PENUH) --- */
+.promo-banner-top {
+width: 100%;
+background: linear-gradient(90deg, #03045e 0%, #0077b6 50%, #03045e 100%);
+color: #ffffff;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 12px 5%;
+box-sizing: border-box;
+font-family: 'Garamond', Tahoma, Geneva, Verdana, sans-serif;
+box-shadow: 0 4px 15px rgba(0, 119, 182, 0.25);
+z-index: 9999;
+position: relative;
+}
+
+/* Flexbox untuk konten teks di kiri */
+.banner-content {
+display: flex;
+align-items: center;
+gap: 30px;
+}
+
+
+
+/* Pengatur susunan teks */
+.banner-text {
+margin: 0;
+font-size: 2rem;
+line-height: 1.4;
+color: #F6C80E
+}
+
+.banner-subtext {
+display: block;
+font-size: 1rem;
+color: #e0f2fe;
+margin-top: 2px;
+}
+
+/* Tombol Oranye "Klaim Sekarang" di Sisi Kanan */
+.banner-btn {
+background-color: #fb8500; /* Oranye terang mencolok */
+color: #ffffff;
+text-decoration: none;
+font-weight: bold;
+font-size: 0.9rem;
+padding: 8px 18px;
+border-radius: 20px;
+white-space: nowrap; /* Mencegah tombol patah kata di layar kecil */
+box-shadow: 0 4px 10px rgba(251, 133, 0, 0.3);
+transition: all 0.2s ease;
+}
+
+/* Efek hover tombol */
+.banner-btn:hover {
+background-color: #ffb703;
+color: #023047;
+transform: scale(1.03);
+}
+
+/* RESPONSIVE: Pengaturan untuk Tampilan Layar HP */
+@media (max-width: 768px) {
+.promo-banner-top {
+flex-direction: column;
+text-align: center;
+gap: 12px;
+padding: 15px;
+}
+.banner-content {
+flex-direction: column;
+gap: 8px;
+}
+.banner-btn {
+width: 100%;
+text-align: center;
+}
+}
+	
+	
 </style>
 
 </head>
+	<div class="promo-banner-top">
+    <div class="banner-content">
+        </span>
+        <p class="banner-text">
+            <strong>⚡ GRADUATION ANNIVERSARY GET EBOOK VIP up to 50%!</strong>
+            <span class="banner-subtext">Periode: 1-7 Juli 2026 |Segera Amankan, Voucher Terbatas</span>
+        </p>
+    </div>
+    <a href="https://wa.me/6285748110997?text=Halo%20Admin%2C%20Saya (nama) mau%20minta%20Kode%20Voucher%20MudaNgetik%20dong%20biar%20bisa%20tebus%209K%21"
+        class="banner-btn">Klaim Sekarang ➔</a>
+</div>
+
 
 <body bgcolor="#0D0D0D" lang=EN-ID link="#0563C1" vlink="#954F72"
 style='word-wrap:break-word'>
