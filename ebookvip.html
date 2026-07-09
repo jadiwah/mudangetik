@@ -2,106 +2,105 @@
 <html lang="id">
 
 <head>
-<!-- ================= SATPAM MUTLAK ANTI-MANIPULASI TANGGAL ================= -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-    (async function() {
-        const sessionEmail = localStorage.getItem('user_email');
-        const membershipType = localStorage.getItem('user_membership');
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        (async function() {
+            const sessionEmail = localStorage.getItem('user_email');
+            const membershipType = localStorage.getItem('user_membership');
 
-        // 1. Cek Login Dasar
-        if (!sessionEmail) {
-            window.location.href = "https://mudangetik.com/memberzone";
-            return;
-        }
+            // 1. Cek Login Dasar
+            if (!sessionEmail) {
+                window.location.href = "https://mudangetik.com/memberzone";
+                return;
+            }
 
-        // ==========================================
-        // FUNGSI UTAMA UNTUK SUNTIK GAMBAR (RENDER DINAMIS)
-        // ==========================================
-        function eksekusiTampilkanEbook() {
-            const wadahGambar = document.getElementById("pustaka-gambar-vip");
-            if (!wadahGambar) return;
+            // ==========================================
+            // FUNGSI UTAMA UNTUK SUNTIK GAMBAR (RENDER DINAMIS)
+            // ==========================================
+            function eksekusiTampilkanEbook() {
+                const wadahGambar = document.getElementById("pustaka-gambar-vip");
+                if (!wadahGambar) return;
 
-            // Daftar 72 nama file acak berurutan
-            const daftarHalaman = [
-                "fw-page-93jdn28.jpg", "fw-page-4k2n8sa.jpg", "fw-page-7x9w1qz.jpg", "fw-page-b28m3nx.jpg",
-                "fw-page-v91k2la.jpg", "fw-page-c38s1po.jpg", "fw-page-f82m9ax.jpg", "fw-page-z01k7qw.jpg",
-                "fw-page-l92p3cc.jpg", "fw-page-a19j2kk.jpg", "fw-page-q82n1ff.jpg", "fw-page-w73m2ss.jpg",
-                "fw-page-e91k8vv.jpg", "fw-page-r29j3nn.jpg", "fw-page-t82m1bb.jpg", "fw-page-y93k2ll.jpg",
-                "fw-page-u19j8xx.jpg", "fw-page-i82m1zz.jpg", "fw-page-o73n2cc.jpg", "fw-page-p91k8vv.jpg",
-                "fw-page-a29j3mm.jpg", "fw-page-s72m1nn.jpg", "fw-page-d82k2bb.jpg", "fw-page-f93n1ff.jpg",
-                "fw-page-g19k8gg.jpg", "fw-page-h82n1hh.jpg", "fw-page-j73m2jj.jpg", "fw-page-k91k8kk.jpg",
-                "fw-page-l29j3ll.jpg", "fw-page-z82m1zz.jpg", "fw-page-x93k2xx.jpg", "fw-page-c19k8cc.jpg",
-                "fw-page-v82n1vv.jpg", "fw-page-b73m2bb.jpg", "fw-page-n91k8nn.jpg", "fw-page-m29j3mm.jpg",
-                "fw-page-q72m1zz.jpg", "fw-page-v82k1aa.jpg", "fw-page-m39s2ll.jpg", "fw-page-p10d8zx.jpg",
-                "fw-page-q29j8ws.jpg", "fw-page-c83n2dd.jpg", "fw-page-t72m1ee.jpg", "fw-page-y19k2oo.jpg",
-                "fw-page-u82j1nn.jpg", "fw-page-i93k8vv.jpg", "fw-page-o19k2bb.jpg", "fw-page-p83n1mm.jpg",
-                "fw-page-a72m3xx.jpg", "fw-page-s82k1zz.jpg", "fw-page-d93n2ff.jpg", "fw-page-f19k8gg.jpg",
-                "fw-page-g82n1hh.jpg", "fw-page-h73m2jj.jpg", "fw-page-j91k8kk.jpg", "fw-page-k29j3ll.jpg",
-                "fw-page-l82m1zz.jpg", "fw-page-z93k2xx.jpg", "fw-page-x19k8cc.jpg", "fw-page-c82n1vv.jpg",
-                "fw-page-v73m2bb.jpg", "fw-page-b91k8nn.jpg", "fw-page-n29j3mm.jpg", "fw-page-m82m1zz.jpg",
-                "fw-page-q93k2ll.jpg", "fw-page-w19k8xx.jpg", "fw-page-e82n1cc.jpg", "fw-page-r73m2vv.jpg",
-                "fw-page-t91k8bb.jpg", "fw-page-y29j3nn.jpg", "fw-page-u82m1zz.jpg", "fw-page-i93k2mm.jpg",
-            ];
+                // Daftar 72 nama file acak berurutan
+                const daftarHalaman = [
+                    "fw-page-93jdn28.jpg", "fw-page-4k2n8sa.jpg", "fw-page-7x9w1qz.jpg", "fw-page-b28m3nx.jpg",
+                    "fw-page-v91k2la.jpg", "fw-page-c38s1po.jpg", "fw-page-f82m9ax.jpg", "fw-page-z01k7qw.jpg",
+                    "fw-page-l92p3cc.jpg", "fw-page-a19j2kk.jpg", "fw-page-q82n1ff.jpg", "fw-page-w73m2ss.jpg",
+                    "fw-page-e91k8vv.jpg", "fw-page-r29j3nn.jpg", "fw-page-t82m1bb.jpg", "fw-page-y93k2ll.jpg",
+                    "fw-page-u19j8xx.jpg", "fw-page-i82m1zz.jpg", "fw-page-o73n2cc.jpg", "fw-page-p91k8vv.jpg",
+                    "fw-page-a29j3mm.jpg", "fw-page-s72m1nn.jpg", "fw-page-d82k2bb.jpg", "fw-page-f93n1ff.jpg",
+                    "fw-page-g19k8gg.jpg", "fw-page-h82n1hh.jpg", "fw-page-j73m2jj.jpg", "fw-page-k91k8kk.jpg",
+                    "fw-page-l29j3ll.jpg", "fw-page-z82m1zz.jpg", "fw-page-x93k2xx.jpg", "fw-page-c19k8cc.jpg",
+                    "fw-page-v82n1vv.jpg", "fw-page-b73m2bb.jpg", "fw-page-n91k8nn.jpg", "fw-page-m29j3mm.jpg",
+                    "fw-page-q72m1zz.jpg", "fw-page-v82k1aa.jpg", "fw-page-m39s2ll.jpg", "fw-page-p10d8zx.jpg",
+                    "fw-page-q29j8ws.jpg", "fw-page-c83n2dd.jpg", "fw-page-t72m1ee.jpg", "fw-page-y19k2oo.jpg",
+                    "fw-page-u82j1nn.jpg", "fw-page-i93k8vv.jpg", "fw-page-o19k2bb.jpg", "fw-page-p83n1mm.jpg",
+                    "fw-page-a72m3xx.jpg", "fw-page-s82k1zz.jpg", "fw-page-d93n2ff.jpg", "fw-page-f19k8gg.jpg",
+                    "fw-page-g82n1hh.jpg", "fw-page-h73m2jj.jpg", "fw-page-j91k8kk.jpg", "fw-page-k29j3ll.jpg",
+                    "fw-page-l82m1zz.jpg", "fw-page-z93k2xx.jpg", "fw-page-x19k8cc.jpg", "fw-page-c82n1vv.jpg",
+                    "fw-page-v73m2bb.jpg", "fw-page-b91k8nn.jpg", "fw-page-n29j3mm.jpg", "fw-page-m82m1zz.jpg",
+                    "fw-page-q93k2ll.jpg", "fw-page-w19k8xx.jpg", "fw-page-e82n1cc.jpg", "fw-page-r73m2vv.jpg",
+                    "fw-page-t91k8bb.jpg", "fw-page-y29j3nn.jpg", "fw-page-u82m1zz.jpg", "fw-page-i93k2mm.jpg",
+                ];
 
-            let susunanHtml = "";
-            daftarHalaman.forEach((namaFile, indeks) => {
-                const nomorHalaman = indeks + 1;
-                susunanHtml += `<img src="${namaFile}" alt="Halaman ${nomorHalaman}" class="ebook-page" loading="lazy" oncontextmenu="return false;" ondragstart="return false;" style="user-select:none; width:100%; max-width:800px; display:block; margin:0 auto 20px auto; border-radius:8px;">`;
-            });
+                let susunanHtml = "";
+                daftarHalaman.forEach((namaFile, indeks) => {
+                    const nomorHalaman = indeks + 1;
+                    susunanHtml += `<img src="${namaFile}" alt="Halaman ${nomorHalaman}" class="ebook-page" loading="lazy" oncontextmenu="return false;" ondragstart="return false;" style="user-select:none; width:100%; max-width:800px; display:block; margin:0 auto 20px auto; border-radius:8px;">`;
+                });
 
-            wadahGambar.innerHTML = susunanHtml;
-        }
+                wadahGambar.innerHTML = susunanHtml;
+            }
 
-        // 2. JALUR AKSES INSTAN VIP
-        if (membershipType === "lifetime_vip") {
-            eksekusiTampilkanEbook(); // Langsung suntik gambar tanpa cek database
-            return; 
-        }
+            // 2. JALUR AKSES INSTAN VIP
+            if (membershipType === "lifetime_vip") {
+                // Memberikan sedikit jeda waktu agar DOM HTML selesai dimuat terlebih dahulu
+                window.addEventListener('DOMContentLoaded', eksekusiTampilkanEbook);
+                return; 
+            }
 
-        // 3. JALUR AKSES FREE (Koneksi ke Supabase)
-        const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // 3. JALUR AKSES FREE (Koneksi ke Supabase)
+            const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
+            const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
+            const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        const { data, error } = await supabaseClient
-            .from('user_access')
-            .select('created_at')
-            .eq('email', sessionEmail)
-            .maybeSingle();
+            const { data, error } = await supabaseClient
+                .from('user_access')
+                .select('created_at')
+                .eq('email', sessionEmail)
+                .maybeSingle();
 
-        if (error || !data) {
-            window.location.href = "https://mudangetik.com/memberzone";
-            return;
-        }
+            if (error || !data) {
+                window.location.href = "https://mudangetik.com/memberzone";
+                return;
+            }
 
-        // 4. Hitung Masa Tunggu Umur Akun via API Jam Atom
-        let selisihHari = 0;
-        try {
-            const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
-            if (!responWaktu.ok) throw new Error("API_Gagal");
-            
-            const dataWaktu = await responWaktu.json();
-            const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
-            const milidetikDaftarMurni = Date.parse(data.created_at);
+            // 4. Hitung Masa Tunggu Umur Akun via API Jam Atom
+            let selisihHari = 0;
+            try {
+                const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
+                if (!responWaktu.ok) throw new Error("API_Gagal");
+                
+                const dataWaktu = await responWaktu.json();
+                const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
+                const milidetikDaftarMurni = Date.parse(data.created_at);
 
-            selisihHari = Math.floor((milidetikHariIniMurni - milidetikDaftarMurni) / (1000 * 3600 * 24));
-        } catch (err) {
-            // Jika user curang memanipulasi jam lokal, API otomatis terputus/error. Langsung blokir!
-            alert("Terdeteksi ketidaksesuaian waktu pada perangkat kamu.");
-            window.location.href = "https://mudangetik.com/dashboard";
-            return;
-        }
+                selisihHari = Math.floor((milidetikHariIniMurni - milidetikDaftarMurni) / (1000 * 3600 * 24));
+            } catch (err) {
+                alert("Terdeteksi ketidaksesuaian waktu pada perangkat kamu.");
+                window.location.href = "https://mudangetik.com/dashboard";
+                return;
+            }
 
-        // 5. Eksekusi Hasil Akhir Satpam Waktu
-        if (selisihHari >= 7) {
-            eksekusiTampilkanEbook(); // Lolos 7 hari! Suntik gambar ke halaman
-        } else {
-            alert("Akses Terkunci! E-book Free baru akan terbuka otomatis tepat 7 hari setelah kamu checkout.");
-            window.location.href = "https://mudangetik.com/dashboard"; 
-        }
-    })();
-</script>
+            // 5. Eksekusi Hasil Akhir Satpam Waktu
+            if (selisihHari >= 7) {
+                window.addEventListener('DOMContentLoaded', eksekusiTampilkanEbook);
+            } else {
+                alert("Akses Terkunci! E-book Free baru akan terbuka otomatis tepat 7 hari setelah kamu checkout.");
+                window.location.href = "https://mudangetik.com/dashboard"; 
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Edition | Formula Worth It</title>
@@ -163,25 +162,30 @@
             transform: scale(1.01);
             border-color: rgba(255, 215, 0, 0.3);
         }
+
+        .ruang-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #8892b0;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="e-book-premium-flow">
-
         <h2>⭐ Formula Worth It Premium Edition</h2>
         <p>Akses Eksklusif Offline Lifetime VIP</p>
 
+        <div id="pustaka-gambar-vip"></div>
 
+        <footer class="ruang-footer">
+            <div class="footer-content">
+                © 2026 MudaNgetik. All Rights Reserved.
+            </div>
+        </footer>
+    </div>
 
-    </script>
-    </section>
-                        <footer class="ruang-footer">
-                            <div class="footer-content">
-                                © 2026 MudaNgetik. All Rights Reserved.
-                            </div>
-                        </footer>
 </body>
-
 </html>
