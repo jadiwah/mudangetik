@@ -1,75 +1,69 @@
 <html>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        (async function() {
-            const sessionEmail = localStorage.getItem('user_email');
-            const membershipType = localStorage.getItem('user_membership');
+<script>
+    (async function() {
+        const sessionEmail = localStorage.getItem('user_email');
+        const membershipType = localStorage.getItem('user_membership');
 
-            // 1. Jika belum login sama sekali, langsung tendang ke login form
-            if (!sessionEmail) {
-                window.location.href = "https://mudangetik.com/memberzone";
-                return;
-            }
+        // 1. Jika belum login sama sekali, langsung tendang ke login form
+        if (!sessionEmail) {
+            window.location.href = "https://mudangetik.com/login";
+            return;
+        }
 
-            // 2. Jika dia VIP, langsung lolos tanpa cek tanggal pendaftaran
-            if (membershipType === "lifetime_vip") {
-                return; 
-            }
+        // 2. Jika dia VIP, langsung lolos tanpa syarat
+        if (membershipType === "lifetime_vip") {
+            return; 
+        }
 
-            // 3. Konfigurasi Supabase untuk cek user_access
-            const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
-            const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
-            const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // 3. Konfigurasi Supabase
+        const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Ambil data tanggal pendaftaran (created_at)
-            const { data, error } = await supabaseClient
-                .from('user_access')
-                .select('created_at')
-                .eq('email', sessionEmail)
-                .maybeSingle();
+        const { data, error } = await supabaseClient
+            .from('user_access')
+            .select('created_at')
+            .eq('email', sessionEmail)
+            .maybeSingle();
 
-            if (error || !data) {
-                window.location.href = "https://mudangetik.com/memberzone";
-                return;
-            }
+        if (error || !data) {
+            window.location.href = "https://mudangetik.com/login";
+            return;
+        }
 
-            // 4. Hitung umur akun
-           const tanggalCheckout = new Date(userData.created_at || data.created_at);
+        // 4. HITUNG SELISIH WAKTU DENGAN PROTEKSI AMAN
+        let selisihHari = 0;
 
-const waktuDaftarServer = userData ? userData.created_at : data.created_at;
+        try {
+            // Ambil waktu internet jujur dari Jakarta
+            const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
+            if (!responWaktu.ok) throw new Error("API Gagal");
+            
+            const dataWaktu = await responWaktu.json();
+            
+            const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
+            const milidetikDaftarMurni = Date.parse(data.created_at);
 
-let selisihHari = 0;
+            const selisihWaktuMurni = milidetikHariIniMurni - milidetikDaftarMurni;
+            selisihHari = Math.floor(selisihWaktuMurni / (1000 * 3600 * 24));
 
-try {
-    // 2. Ambil waktu internet murni (Kita pakai worldtimeapi karena menyediakan Unix Timestamp murni)
-    const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
-    const dataWaktu = await responWaktu.json();
-    
-    // 3. Konversi kedua waktu server menjadi angka milidetik murni (Unix Epoch Time)
-    // Angka murni ini bebas dari pengaruh manipulasi kalender laptop/HP user!
-    const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
-    const milidetikDaftarMurni = Date.parse(waktuDaftarServer);
+        } catch (err) {
+            // JIKA USER CURANG/MANIPULASI JAM SEHINGGA API ERROR: 
+            // LANGSUNG BLOKIR, JANGAN BERI TOLERANSI JAM LOKAL!
+            alert("Terdeteksi ketidaksesuaian waktu pada perangkat kamu atau koneksi terputus. Untuk keamanan antrean, pastikan pengaturan waktu otomatis (Set Time Automatically) di HP/Laptopmu aktif ya!");
+            window.location.href = "https://mudangetik.com/dashboard";
+            return;
+        }
 
-    // 4. Hitung selisih hari berdasarkan angka murni server
-    const selisihWaktuMurni = milidetikHariIniMurni - milidetikDaftarMurni;
-    selisihHari = Math.floor(selisihWaktuMurni / (1000 * 3600 * 24));
-
-} catch (err) {
-    console.error("Gagal mengambil waktu internet, pertahanan lokal diaktifkan", err);
-    // Fallback cadangan jika API sibuk
-    const tanggalCheckout = new Date(waktuDaftarServer);
-    const tanggalHariIni = new Date();
-    const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
-    selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
-}
-
-            // 5. Kunci pintu jika umur akun member FREE belum genap 7 hari
-            if (selisihHari < 7) {
-                alert(`Eits! Akses belum terbuka. Kamu baru bergabung selama ${selisihHari} hari. Sesuai aturan antrean Free, mohon kembali lagi setelah 1 minggu 7 dari pendaftaranmu ya! Atau upgrade ke VIP untuk akses instan.`);
-                window.location.href = "https://mudangetik.com/dashboard"; // Kembalikan ke dashboard utama
-            }
-        })();
-    </script>
+        // 5. Kunci pintu jika umur akun member FREE belum genap 7 hari
+        if (selisihHari < 7) {
+            const sisaHari = 7 - selisihHari;
+            alert(`Eits! Akses belum terbuka. Kamu baru bergabung selama ${selisihHari} hari. Sesuai aturan antrean Free, mohon kembali lagi setelah genap ${sisaHari} hari lagi ya! Atau upgrade ke VIP untuk akses instan.`);
+            window.location.href = "https://mudangetik.com/dashboard"; 
+        }
+    })();
+</script>
 <head>
 			<script>
     (function() {
