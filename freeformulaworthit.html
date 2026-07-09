@@ -12,6 +12,51 @@
             window.location.href = "https://mudangetik.com/memberzone"; 
         }
     })();
+				<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    (async function() {
+        const sessionEmail = localStorage.getItem('user_email');
+        const membershipType = localStorage.getItem('user_membership');
+
+        // 1. Jika belum login sama sekali, langsung tendang ke login form
+        if (!sessionEmail) {
+            window.location.href = "https://mudangetik.com/login";
+            return;
+        }
+
+        // 2. Jika dia VIP, langsung lolos tanpa cek tanggal pendaftaran
+        if (membershipType === "lifetime_vip") {
+            return; 
+        }
+
+        // 3. Konfigurasi Supabase untuk cek user_access
+        const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Ambil data tanggal pendaftaran (created_at)
+        const { data, error } = await supabaseClient
+            .from('user_access')
+            .select('created_at')
+            .eq('email', sessionEmail)
+            .maybeSingle();
+
+        if (error || !data) {
+            window.location.href = "https://mudangetik.com/login";
+            return;
+        }
+
+        // 4. Hitung umur akun
+        const tanggalCheckout = new Date(data.created_at);
+        const tanggalHariIni = new Date();
+        const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
+        const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+
+        // 5. Kunci pintu jika umur akun member FREE belum genap 7 hari
+        if (selisihHari < 7) {
+            alert(`Eits! Akses belum terbuka. Kamu baru bergabung selama ${selisihHari} hari. Sesuai aturan antrean Free, mohon kembali lagi setelah genap 7 hari ya! Atau upgrade ke VIP untuk akses instan.`);
+            window.location.href = "https://mudangetik.com/dashboard"; // Kembalikan ke dashboard utama
+        }
+    })();
 </script>
 <meta charset="UTF-8">
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
