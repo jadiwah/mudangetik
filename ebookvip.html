@@ -2,7 +2,72 @@
 <html lang="id">
 
 <head>
-    <script>
+<!-- ================= SATPAM MUTLAK ANTI-MANIPULASI TANGGAL ================= -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    (async function() {
+        const sessionEmail = localStorage.getItem('user_email');
+        const membershipType = localStorage.getItem('user_membership');
+
+        // 1. Cek Login
+        if (!sessionEmail) {
+            window.location.href = "https://mudangetik.com/memberzone";
+            return;
+        }
+
+        // 2. VIP Bebas Akses
+        if (membershipType === "lifetime_vip") {
+            return; 
+        }
+
+        // 3. Koneksi Supabase
+        const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InluYWVieXVoZnhkb2ttdHZ1cmlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTEwNjIsImV4cCI6MjA5OTA4NzA2Mn0.BbnlJQwH6eE3LTDtoh8QQvp8seeBAKikwDi6cSznoRY";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const { data, error } = await supabaseClient
+            .from('user_access')
+            .select('created_at')
+            .eq('email', sessionEmail)
+            .maybeSingle();
+
+        if (error || !data) {
+            window.location.href = "https://mudangetik.com/memberzone";
+            return;
+        }
+
+        // 4. Hitung Umur Akun via API Waktu Dunia
+        let selisihHari = 0;
+
+        try {
+            const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
+            if (!responWaktu.ok) throw new Error("API_Gagal");
+            
+            const dataWaktu = await responWaktu.json();
+            
+            const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
+            const milidetikDaftarMurni = Date.parse(data.created_at);
+
+            const selisihWaktuMurni = milidetikHariIniMurni - milidetikDaftarMurni;
+            selisihHari = Math.floor(selisihWaktuMurni / (1000 * 3600 * 24));
+
+        } catch (err) {
+            // Jika jam device dimanipulasi, API worldtime otomatis memicu error SSL/Handshake.
+            // Kita langsung blokir di sini demi keamanan!
+            alert("Terdeteksi ketidaksesuaian waktu pada perangkat kamu. Sesuai aturan keamanan antrean MudaNgetik, mohon kembalikan pengaturan jam laptop/HP kamu ke otomatis (Set Time Automatically) ya!");
+            window.location.href = "https://mudangetik.com/dashboard";
+            return;
+        }
+
+        // 5. Eksekusi Gembok jika Member Free belum berumur 7 hari
+        if (selisihHari < 7) {
+            alert("Akses Terkunci! E-book Free baru akan terbuka otomatis tepat 7 hari setelah kamu checkout. Mau akses instan tanpa menunggu antrean? Yuk upgrade ke VIP!");
+            window.location.href = "https://mudangetik.com/dashboard"; 
+        }
+    })();
+</script>
+<head>
+			<script>
     (function() {
         // 1. Cek apakah perangkat ini sudah pernah login
         const sessionEmail = localStorage.getItem('user_email');
@@ -13,6 +78,7 @@
             window.location.href = "https://mudangetik.com/memberzone"; 
         }
     })();
+				
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
