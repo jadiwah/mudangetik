@@ -229,7 +229,10 @@
 
             <div class="video-wrapper">
                 <!-- Ganti VIDEO_ID dengan id video tutorial aslimu -->
-             <iframe width="560" height="315" src="https://www.youtube.com/embed/OZScOlp2VXs?si=t_wZZOLG70pbuomE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/OZScOlp2VXs?si=t_wZZOLG70pbuomE"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <h3 style="margin-top: 20px;">Panduan Eksekusi Langkah Demi Langkah:</h3>
             <p style="color: var(--text-gray); line-height: 1.6;">Tonton video di atas untuk menguasai sistem
@@ -248,6 +251,16 @@
 
     <!-- ================= LOGIKA LOGIC AUTOPILOT UTAMANYA ================= -->
     <script>
+        (function() {
+        // Cek apakah ada data email yang tersimpan di memori browser (LocalStorage) device tersebut
+        const sessionEmail = localStorage.getItem('user_email');
+        
+        // Jika TIDAK ADA data email (artinya dia belum login atau pakai device baru)
+        if (!sessionEmail) {
+        // Langsung lempar paksa ke halaman login
+        window.location.href = "https://mudangetik.com/memberzone"; // Sesuaikan dengan URL login .com milikmu
+        }
+        })();
         // DATA KANGGO SIMULASI (Diambil dari Supabase pasca login sukses)
         const userSession = {
             email: "pejuangskripsi@gmail.com",
