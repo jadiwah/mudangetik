@@ -36,23 +36,32 @@
             // 4. Hitung umur akun
            const tanggalCheckout = new Date(userData.created_at || data.created_at);
 
-// Ambil waktu internet asli server Jakarta (WIB)
-let tanggalHariIni;
+const waktuDaftarServer = userData ? userData.created_at : data.created_at;
+
+let selisihHari = 0;
+
 try {
-    // Menembak server waktu dunia khusus area Asia/Jakarta
-    const responWaktu = await fetch("https://timeapi.io/api/time/current/zone?timeZone=Asia/Jakarta");
+    // 2. Ambil waktu internet murni (Kita pakai worldtimeapi karena menyediakan Unix Timestamp murni)
+    const responWaktu = await fetch("https://worldtimeapi.org/api/timezone/Asia/Jakarta");
     const dataWaktu = await responWaktu.json();
     
-    // Mengunci objek tanggal berdasarkan waktu internet asli, bukan jam laptop user
-    tanggalHariIni = new Date(dataWaktu.dateTime); 
-} catch (err) {
-    // Jika internet user sangat lambat atau API sibuk, fallback aman menggunakan waktu sistem
-    tanggalHariIni = new Date(); 
-}
+    // 3. Konversi kedua waktu server menjadi angka milidetik murni (Unix Epoch Time)
+    // Angka murni ini bebas dari pengaruh manipulasi kalender laptop/HP user!
+    const milidetikHariIniMurni = dataWaktu.unixtime * 1000; 
+    const milidetikDaftarMurni = Date.parse(waktuDaftarServer);
 
-// Hitung selisih hari yang objektif
-const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
-const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+    // 4. Hitung selisih hari berdasarkan angka murni server
+    const selisihWaktuMurni = milidetikHariIniMurni - milidetikDaftarMurni;
+    selisihHari = Math.floor(selisihWaktuMurni / (1000 * 3600 * 24));
+
+} catch (err) {
+    console.error("Gagal mengambil waktu internet, pertahanan lokal diaktifkan", err);
+    // Fallback cadangan jika API sibuk
+    const tanggalCheckout = new Date(waktuDaftarServer);
+    const tanggalHariIni = new Date();
+    const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
+    selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+}
 
             // 5. Kunci pintu jika umur akun member FREE belum genap 7 hari
             if (selisihHari < 7) {
