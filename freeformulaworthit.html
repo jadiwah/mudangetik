@@ -29,15 +29,30 @@
                 .maybeSingle();
 
             if (error || !data) {
-                window.location.href = "https://mudangetik.com/login";
+                window.location.href = "https://mudangetik.com/memberzone";
                 return;
             }
 
             // 4. Hitung umur akun
-            const tanggalCheckout = new Date(data.created_at);
-            const tanggalHariIni = new Date();
-            const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
-            const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
+           const tanggalCheckout = new Date(userData.created_at || data.created_at);
+
+// Ambil waktu internet asli server Jakarta (WIB)
+let tanggalHariIni;
+try {
+    // Menembak server waktu dunia khusus area Asia/Jakarta
+    const responWaktu = await fetch("https://timeapi.io/api/time/current/zone?timeZone=Asia/Jakarta");
+    const dataWaktu = await responWaktu.json();
+    
+    // Mengunci objek tanggal berdasarkan waktu internet asli, bukan jam laptop user
+    tanggalHariIni = new Date(dataWaktu.dateTime); 
+} catch (err) {
+    // Jika internet user sangat lambat atau API sibuk, fallback aman menggunakan waktu sistem
+    tanggalHariIni = new Date(); 
+}
+
+// Hitung selisih hari yang objektif
+const selisihWaktu = tanggalHariIni.getTime() - tanggalCheckout.getTime();
+const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
 
             // 5. Kunci pintu jika umur akun member FREE belum genap 7 hari
             if (selisihHari < 7) {
