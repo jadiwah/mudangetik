@@ -1,6 +1,18 @@
 <html>
 
 <head>
+			<script>
+    (function() {
+        // 1. Cek apakah perangkat ini sudah pernah login
+        const sessionEmail = localStorage.getItem('user_email');
+
+        // 2. Jika tidak ada data login (belum terdaftar/belum login)
+        if (!sessionEmail) {
+            // Langsung tendang ke halaman login utama
+            window.location.href = "https://mudangetik.com/login"; 
+        }
+    })();
+</script>
 <meta charset="UTF-8">
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
 <meta name=Generator content="Microsoft Word 15 (filtered)">
@@ -24851,6 +24863,7 @@ line-height:107%;font-family:"Arial",sans-serif'>&nbsp;</span></p>
     <!-- Deretan Halaman Ebook Premium Berurutan Ke Bawah -->
     <img src="hal75.jpg" alt="Halaman 75" style="width: 100%; height: auto; display: block; margin-bottom: 20px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
     <img src="hal76.jpg" alt="Halaman 76" style="width: 100%; height: auto; display: block; margin-bottom: 20px; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+
 <footer class="ruang-footer">
                             <div class="footer-content">
                                 © 2026 MudaNgetik. All Rights Reserved.
