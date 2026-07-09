@@ -2,6 +2,18 @@
 <html lang="id">
 
 <head>
+    <script>
+    (function() {
+        // 1. Cek apakah perangkat ini sudah pernah login
+        const sessionEmail = localStorage.getItem('user_email');
+
+        // 2. Jika tidak ada data login (belum terdaftar/belum login)
+        if (!sessionEmail) {
+            // Langsung tendang ke halaman login utama
+            window.location.href = "https://mudangetik.com/memberzone"; 
+        }
+    })();
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Edition | Formula Worth It</title>
