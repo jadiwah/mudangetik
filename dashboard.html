@@ -530,27 +530,30 @@
     </main>
 
     <script>
-        // Fungsi Perpindahan Tab Konten Langsung (Anti-Reload Halaman)
-        function bukaTab(namaTab) {
-        // Sembunyikan semua konten section
-        const sections = document.querySelectorAll('.content-section');
-        sections.forEach(sec => sec.classList.remove('active-tab'));
-        
-        // Nonaktifkan semua status active di menu sidebar
-        const links = document.querySelectorAll('.nav-menu li a');
-        links.forEach(link => link.classList.remove('active'));
-        
-        // Tampilkan section yang dipilih & set menu menjadi active
-        document.getElementById('tab-' + namaTab).classList.add('active-tab');
-        document.getElementById('menu-' + namaTab).classList.add('active');
-        
-        // Update Teks Breadcrumb di Top bar
-        const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
-        const breadcrumbElement = document.getElementById('breadcrumb-aktif'); // Pastikan ID ini sesuai di HTML Anda
-        if (breadcrumbElement) {
+       function bukaTab(namaTab) {
+    // Sembunyikan semua konten section
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(sec => sec.classList.remove('active-tab'));
+    
+    // Nonaktifkan semua status active di menu sidebar
+    const links = document.querySelectorAll('.nav-menu li a');
+    links.forEach(link => link.classList.remove('active'));
+    
+    // Tampilkan section yang dipilih & set menu menjadi active
+    const targetTab = document.getElementById('tab-' + namaTab);
+    const targetMenu = document.getElementById('menu-' + namaTab);
+    
+    if (targetTab) targetTab.classList.add('active-tab');
+    if (targetMenu) targetMenu.classList.add('active');
+    
+    // Update Teks Breadcrumb di Top bar
+    const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
+    const breadcrumbElement = document.getElementById('breadcrumb-aktif');
+    if (breadcrumbElement) {
         breadcrumbElement.textContent = `Member Zone / ${namaKapital}`;
-        }
-        } 
+    }
+}
+        window.bukaTab = bukaTab;
         document.addEventListener("DOMContentLoaded", async ()=>
             {
             const userEmail = localStorage.getItem("user_email");
