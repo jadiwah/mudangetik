@@ -2,7 +2,7 @@
 <html lang="id">
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
 (async function() {
 const sessionEmail = localStorage.getItem('user_email');
@@ -16,7 +16,7 @@ return;
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Area | MudaNgetik Stellar Zone</title>
+    <title>Member Zone | MudaNgetik Stellar Zone</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico?v=1">
@@ -372,6 +372,8 @@ return;
                     <i class="fas fa-lock gembok-icon" id="icon-gembok"></i>
                 </a>
             </li>
+            <li><a href="https://mudangetik.com/#info-section" id="menu-dashboard"
+                    class="active"><i class="fas fa-phone"></i> Hubungi Kami</a></li>
 
 
 
@@ -391,7 +393,7 @@ return;
     <main class="main-wrapper">
 
         <header class="top-bar">
-            <div class="breadcrumb" id="text-breadcrumb">Member Area / Dashboard</div>
+            <div class="breadcrumb" id="text-breadcrumb">Member Zone / Dashboard</div>
             <div class="user-greeting">
                 <span id="nama-user">Hai, Pejuang!</span>
                 <div class="user-avatar"><i class="fas fa-user"></i></div>
@@ -429,23 +431,24 @@ return;
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-sitemap"></i></div>
                         <h3>Mind Map Kit</h3>
-                        <p>Teknik mencatat tingkat tinggi, buat materi kompleks jadi simple.</p>
+                        <p> Mind Map versi PDF dan Word.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Unduh Aset</a>
+                    <a href="https://mudangetik.com/unduhan" class="btn-download">Unduh </a>
                 </div>
                 <div class="hadiah-card">
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-chalkboard-user"></i></div>
-                        <h3>PPT Quantum Teaching</h3>
-                        <p>Template presentasi interaktif berstandar tinggi untuk pembelajaran yang lebih hidup.</p>
+                        <h3>PPT Quantum Learning</h3>
+                        <p>Template presentasi mind map.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Unduh File</a>
+                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU?usp=sharing"
+                        class="btn-download">Unduh File</a>
                 </div>
                 <div class="hadiah-card">
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
                         <h3>Persamaan Fisika Estetik</h3>
-                        <p>Tutorial merancang rumus dan simbol fisika agar terlihat bersih, modern, dan memikat.</p>
+                        <p>Tutorial mendesain rumus dan simbol matematika tampak estetik dan menarik.</p>
                     </div>
                     <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Tonton Panduan</a>
                 </div>
@@ -453,8 +456,7 @@ return;
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-certificate"></i></div>
                         <h3>Sertifikat Otomatis</h3>
-                        <p>Panduan integrasi sistem untuk menerbitkan ratusan sertifikat digital secara otomatis sekali
-                            klik.</p>
+                        <p>Full senyum si sekret, ratusan sertifikat dalam sekali klik.</p>
                     </div>
                     <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Baca Panduan</a>
                 </div>
@@ -462,17 +464,17 @@ return;
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-video"></i></div>
                         <h3>Ebook Video Murattal</h3>
-                        <p>Panduan teknis memproduksi video murattal Al-Qur'an sinematik dan menenangkan.</p>
+                        <p>Tutorial buat video murottal sinematik cuma pakai Canva.</p>
                     </div>
                     <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Unduh Ebook</a>
                 </div>
                 <div class="hadiah-card">
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-eye"></i></div>
-                        <h3>Preview Formula Worth It</h3>
-                        <p>Intipan eksklusif beberapa halaman bab awal dari Ebook Utama Jalur VIP.</p>
+                        <h3>Custom Keyboard Shortcut</h3>
+                        <p>Buat keyboard shortcut sendiri biar makin produktif.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Buka Preview</a>
+                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Coba Buat</a>
                 </div>
             </div>
         </section>
@@ -509,7 +511,7 @@ return;
             
             // Update Teks Breadcrumb di Top bar
             const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
-            document.getElementById('text-breadcrumb').textContent = `Member Area / ${namaKapital === 'Vip' ? 'Komunitas VIP' : namaKapital}`;
+            document.getElementById('text-breadcrumb').textContent = `Member Zone / ${namaKapital === 'Vip' ? 'Komunitas VIP' : namaKapital}`;
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
@@ -526,7 +528,7 @@ return;
             // 2. Event Logout
             document.getElementById('btn-logout').addEventListener('click', (e) => {
                 e.preventDefault();
-                if(confirm("Apakah kamu yakin ingin keluar dari Member Area?")) {
+                if(confirm("Apakah kamu yakin ingin keluar dari Member Zone?")) {
                     localStorage.removeItem('user_email');
                     localStorage.removeItem('user_membership');
                     window.location.href = "https://mudangetik.com/memberzone";
