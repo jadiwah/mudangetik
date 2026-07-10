@@ -2,17 +2,17 @@
 <html lang="id">
 
 <head>
-     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-(async function() {
-const sessionEmail = localStorage.getItem('user_email');
-
-// 1. Jika belum login sama sekali, langsung tendang ke login form
-if (!sessionEmail) {
-window.location.href = "https://mudangetik.com/memberzone";
-return;
-}
-})();
+        (async function() {
+    const sessionEmail = localStorage.getItem('user_email');
+    
+    // 1. Jika belum login sama sekali, langsung tendang ke login form
+    if (!sessionEmail) {
+    window.location.href = "https://mudangetik.com/memberzone";
+    return;
+    }
+    })();
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -347,6 +347,39 @@ return;
             font-size: 13px;
             color: var(--text-gray);
         }
+        .video-preview-section {
+        text-align: center;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 50px;
+        }
+        
+        .video-preview-section h2 {
+        color: #0d1b2a;
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+        }
+        
+        .section-subtitle {
+        color: #718096;
+        font-size: 1rem;
+        max-width: 650px;
+        margin: 0 auto 30px auto;
+        }
+        
+        .video-frame-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        }
+        
+        .large-preview-video {
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        border-radius: 14px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+        }
     </style>
 </head>
 
@@ -365,12 +398,10 @@ return;
             <li>
                 <a href="https://mudangetik.com/ebookvip" id="menu-ebook">
                     <i class="fas fa-book"></i> VIP Formula Worth It
-            </li>
-            <li>
-                <a href="https://mudangetik.com/freeformulaworthit" id="menu-ebook">
-                    <i class="fas fa-book"></i> FREE Formula Worth It
-                    <i class="fas fa-lock gembok-icon" id="icon-gembok"></i>
-                </a>
+                    <a href="https://mudangetik.com/freeformulaworthit" id="menu-ebook">
+                        <i class="fas fa-book"></i> FREE Formula Worth It
+                        <i class="fas fa-lock gembok-icon" id="icon-gembok"></i>
+                    </a>
             </li>
             <li><a href="https://mudangetik.com/#info-section" id="menu-dashboard"
                     class="active"><i class="fas fa-phone"></i> Hubungi Kami</a></li>
@@ -439,7 +470,7 @@ return;
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-chalkboard-user"></i></div>
                         <h3>PPT Quantum Learning</h3>
-                        <p>Template presentasi mind map.</p>
+                        <p>Materi presentasi mind map.</p>
                     </div>
                     <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU?usp=sharing"
                         class="btn-download">Unduh File</a>
@@ -450,7 +481,8 @@ return;
                         <h3>Persamaan Fisika Estetik</h3>
                         <p>Tutorial mendesain rumus dan simbol matematika tampak estetik dan menarik.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Tonton Panduan</a>
+                    <a href="https://drive.google.com/file/d/1-ULNInJcAQk0Z0SytV40Va9IsyzcMwPf/view?usp=sharing"
+                        class="btn-download">Tonton Panduan</a>
                 </div>
                 <div class="hadiah-card">
                     <div>
@@ -458,7 +490,8 @@ return;
                         <h3>Sertifikat Otomatis</h3>
                         <p>Full senyum si sekret, ratusan sertifikat dalam sekali klik.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Baca Panduan</a>
+                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU"
+                        class="btn-download">Baca Panduan</a>
                 </div>
                 <div class="hadiah-card">
                     <div>
@@ -466,7 +499,8 @@ return;
                         <h3>Ebook Video Murattal</h3>
                         <p>Tutorial buat video murottal sinematik cuma pakai Canva.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Unduh Ebook</a>
+                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU"
+                        class="btn-download">Unduh Ebook</a>
                 </div>
                 <div class="hadiah-card">
                     <div>
@@ -474,22 +508,21 @@ return;
                         <h3>Custom Keyboard Shortcut</h3>
                         <p>Buat keyboard shortcut sendiri biar makin produktif.</p>
                     </div>
-                    <a href="https://lynk.id/suksesbarengjalurlangit" class="btn-download">Coba Buat</a>
+                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU" class="btn-download">Coba Buat</a>
                 </div>
             </div>
         </section>
-        <div class="quote-menyala">
-            "Ingat, tekanan ini sedang memprosesmu menjadi berlian"
-        </div>
-
-        <!-- Copyright -->
-        <div class="copyright-text">
-            &copy; 2026 MudaNgetik. All Rights Reserved.
         </div>
         </div>
-
-
-
+           
+            <p class="section-subtitle">Tonton perbandingan visual free vs VIP Formula Worth It.</p>
+        
+            <div class="video-frame-wrapper">
+                <video controls class="large-preview-video">
+                    <source src="ilmunya.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung pemutar video HTML5.
+                </video>
+            </div>
         </section>
 
     </main>
@@ -511,8 +544,7 @@ return;
             
             // Update Teks Breadcrumb di Top bar
             const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
-            document.getElementById('text-breadcrumb').textContent = `Member Zone / ${namaKapital === 'Vip' ? 'Komunitas VIP' : namaKapital}`;
-        }
+
 
         document.addEventListener("DOMContentLoaded", async () => {
             const userEmail = localStorage.getItem("user_email");
