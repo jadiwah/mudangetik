@@ -2,17 +2,17 @@
 <html lang="id">
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        (async function() {
-    const sessionEmail = localStorage.getItem('user_email');
-    
-    // 1. Jika belum login sama sekali, langsung tendang ke login form
-    if (!sessionEmail) {
-    window.location.href = "https://mudangetik.com/memberzone";
-    return;
-    }
-    })();
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+            (async function() {
+            const sessionEmail = localStorage.getItem('user_email');
+            
+            // 1. Jika belum login sama sekali, langsung tendang ke login form
+            if (!sessionEmail) {
+            window.location.href = "https://mudangetik.com/memberzone";
+            return;
+            }
+            })();
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,45 +109,6 @@
             background-color: rgba(10, 25, 47, 0.5);
         }
 
-        .quote-menyala {
-            font-size: 20px;
-            font-style: italic;
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-            /* Memanggil Animasi Nafas Menyala */
-            animation: glowAnimation 3s ease-in-out infinite;
-        }
-
-        /* Logika Animasi Breathing Neon Gold */
-        @keyframes glowAnimation {
-            0% {
-                text-shadow: 0 0 2px rgba(255, 215, 0, 0.2);
-                color: #e2e8f0;
-            }
-
-            50% {
-                text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4);
-                color: var(--neon-gold);
-            }
-
-            100% {
-                text-shadow: 0 0 2px rgba(255, 215, 0, 0.2);
-                color: #e2e8f0;
-            }
-        }
-
-        .copyright-text {
-            font-size: 10px;
-            color: var(--text-gray);
-            text-align: center;
-            margin-top: 5px;
-            opacity: 0.7;
-        }
-
         .copyright-text {
             font-size: 10px;
             color: var(--text-gray);
@@ -183,9 +144,7 @@
             flex-direction: column;
             overflow-y: auto;
             background-color: var(--bg-dark);
-
         }
-
 
         .top-bar {
             background-color: var(--bg-card);
@@ -223,7 +182,6 @@
         /* Content Area */
         .content-section {
             display: none;
-            /* Sembunyikan semua tab secara default */
             padding: 40px;
             max-width: 950px;
             margin: 0 auto;
@@ -233,7 +191,6 @@
 
         .content-section.active-tab {
             display: block;
-            /* Hanya tampilkan tab yang aktif */
         }
 
         .welcome-title {
@@ -245,7 +202,6 @@
 
         .welcome-subtitle {
             font-size: 16px;
-            /* UBAH INI: Pastikan teks deskripsi berwarna abu-abu terang */
             color: var(--text-white);
             line-height: 1.6;
             margin-bottom: 30px;
@@ -314,16 +270,6 @@
             color: var(--bg-dark);
         }
 
-        /* Card Komunitas VIP */
-        .vip-box {
-            background-color: var(--bg-card);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
         .btn-telegram {
             display: inline-block;
             background-color: #25D366;
@@ -350,18 +296,13 @@
 
         .video-preview-section {
             text-align: center;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
             padding-top: 50px;
-        }
-
-        .video-preview-section h2 {
-            color: #0d1b2a;
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+            margin-top: 40px;
         }
 
         .section-subtitle {
-            color: #718096;
+            color: var(--text-gray);
             font-size: 1rem;
             max-width: 650px;
             margin: 0 auto 30px auto;
@@ -378,8 +319,8 @@
             max-width: 720px;
             height: auto;
             border-radius: 14px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.1);
         }
     </style>
 </head>
@@ -399,23 +340,22 @@
             <li>
                 <a href="https://mudangetik.com/ebookvip" id="menu-ebook">
                     <i class="fas fa-book"></i> VIP Formula Worth It
-                    <a href="https://mudangetik.com/freeformulaworthit" id="menu-ebook">
-                        <i class="fas fa-book"></i> FREE Formula Worth It
-                        <i class="fas fa-lock gembok-icon" id="icon-gembok"></i>
-                    </a>
+                </a>
             </li>
-            <li><a href="https://mudangetik.com/#info-section" id="menu-dashboard"
-                    class="active"><i class="fas fa-phone"></i> Hubungi Kami</a></li>
-
-
-
+            <li>
+                <a href="https://mudangetik.com/freeformulaworthit" id="menu-free-ebook">
+                    <i class="fas fa-book"></i> FREE Formula Worth It
+                    <i class="fas fa-lock gembok-icon" id="icon-gembok"></i>
+                </a>
+            </li>
+            <li><a href="https://mudangetik.com/#info-section" id="menu-hubungi"><i class="fas fa-phone"></i> Hubungi
+                    Kami</a></li>
         </ul>
 
         <div class="sidebar-footer">
             <div class="logout-btn">
                 <a id="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout Sistem</a>
             </div>
-
             <div class="copyright-text">
                 &copy; 2026 MudaNgetik. All Rights Reserved.
             </div>
@@ -435,9 +375,7 @@
         <section id="tab-dashboard" class="content-section active-tab">
             <h1 class="welcome-title">Selamat Bergabung di Circle MudaNgetik! 🌟</h1>
             <p class="welcome-subtitle">Akses antreanmu berhasil dikunci. Jangan lupa <b>bergabung di Grup WA</b> khusus
-                untuk mendapatkan
-                update materi terbaru, akses tools produktivitas, dan sesi Q&A eksklusif..</p>
-
+                untuk mendapatkan update materi terbaru, akses tools produktivitas, dan sesi Q&A eksklusif..</p>
 
             <div
                 style="background-color: var(--bg-card); border-radius: 12px; padding: 30px; text-align: center; border: 1px solid rgba(255, 215, 0, 0.05);">
@@ -448,8 +386,7 @@
                 <h3>Status Akun Terverifikasi</h3>
                 <p style="color: var(--text-white); font-size: 14px; max-width: 500px; margin: 0 auto;"
                     id="teks-info-ebook">Gembok modul eksklusif akan terbuka setelah 1 minggu. Yuk ambil hadiah instan
-                    kamu.
-                </p>
+                    kamu.</p>
             </div>
         </section>
 
@@ -463,7 +400,7 @@
                     <div>
                         <div class="hadiah-icon"><i class="fas fa-sitemap"></i></div>
                         <h3>Mind Map Kit</h3>
-                        <p> Mind Map versi PDF dan Word.</p>
+                        <p> Mind Map versi PDF and Word.</p>
                     </div>
                     <a href="https://mudangetik.com/unduhan" class="btn-download">Unduh </a>
                 </div>
@@ -513,75 +450,75 @@
                         class="btn-download">Coba Buat</a>
                 </div>
             </div>
-        </section>
-        </div>
-        </div>
 
-        <p class="section-subtitle">Tonton perbandingan visual free vs VIP Formula Worth It.</p>
-
-        <div class="video-frame-wrapper">
-            <video controls class="large-preview-video">
-                <source src="ilmunya.mp4" type="video/mp4">
-                Browser kamu tidak mendukung pemutar video HTML5.
-            </video>
-        </div>
+            <!-- Bagian Video dipindahkan dengan aman ke dalam section hadiah agar tampil rapi -->
+            <div class="video-preview-section">
+                <p class="section-subtitle">Tonton perbandingan visual free vs VIP Formula Worth It.</p>
+                <div class="video-frame-wrapper">
+                    <video controls class="large-preview-video">
+                        <source src="ilmunya.mp4" type="video/mp4">
+                        Browser kamu tidak mendukung pemutar video HTML5.
+                    </video>
+                </div>
+            </div>
         </section>
 
     </main>
 
     <script>
-       function bukaTab(namaTab) {
-    // Sembunyikan semua konten section
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(sec => sec.classList.remove('active-tab'));
-    
-    // Nonaktifkan semua status active di menu sidebar
-    const links = document.querySelectorAll('.nav-menu li a');
-    links.forEach(link => link.classList.remove('active'));
-    
-    // Tampilkan section yang dipilih & set menu menjadi active
-    const targetTab = document.getElementById('tab-' + namaTab);
-    const targetMenu = document.getElementById('menu-' + namaTab);
-    
-    if (targetTab) targetTab.classList.add('active-tab');
-    if (targetMenu) targetMenu.classList.add('active');
-    
-    // Update Teks Breadcrumb di Top bar
-    const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
-    const breadcrumbElement = document.getElementById('breadcrumb-aktif');
-    if (breadcrumbElement) {
-        breadcrumbElement.textContent = `Member Zone / ${namaKapital}`;
-    }
-}
+        function bukaTab(namaTab) {
+            // Sembunyikan semua konten section
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => sec.classList.remove('active-tab'));
+            
+            // Nonaktifkan semua status active di menu sidebar
+            const links = document.querySelectorAll('.nav-menu li a');
+            links.forEach(link => link.classList.remove('active'));
+            
+            // Tampilkan section yang dipilih & set menu menjadi active
+            const targetTab = document.getElementById('tab-' + namaTab);
+            const targetMenu = document.getElementById('menu-' + namaTab);
+            
+            if (targetTab) targetTab.classList.add('active-tab');
+            if (targetMenu) targetMenu.classList.add('active');
+            
+            // Update Teks Breadcrumb di Top bar
+            const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
+            const breadcrumbElement = document.getElementById('text-breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.textContent = `Member Zone / ${namaKapital}`;
+            }
+        }
+        
+        // Daftarkan ke global window
         window.bukaTab = bukaTab;
-        document.addEventListener("DOMContentLoaded", async ()=>
-            {
+
+        document.addEventListener("DOMContentLoaded", async () => {
             const userEmail = localStorage.getItem("user_email");
             const membershipType = localStorage.getItem("user_membership");
         
             // 1. Ekstraksi Nama dari Email untuk Sapaan Top Bar
             if (userEmail) {
-            let namaPanggilan = userEmail.split('@')[0];
-            namaPanggilan = namaPanggilan.charAt(0).toUpperCase() + namaPanggilan.slice(1);
-            const namaUserElement = document.getElementById('nama-user');
-            if (namaUserElement) {
-            namaUserElement.textContent = `Hai, ${namaPanggilan} 👋`;
-            }
+                let namaPanggilan = userEmail.split('@')[0];
+                namaPanggilan = namaPanggilan.charAt(0).toUpperCase() + namaPanggilan.slice(1);
+                const namaUserElement = document.getElementById('nama-user');
+                if (namaUserElement) {
+                    namaUserElement.textContent = `Hai, ${namaPanggilan} 👋`;
+                }
             }
         
             // 2. Event Logout
             const btnLogout = document.getElementById('btn-logout');
             if (btnLogout) {
-            btnLogout.addEventListener('click', (e) => {
-            e.preventDefault();
-            if(confirm("Apakah kamu yakin ingin keluar dari Member Zone?")) {
-            localStorage.removeItem('user_email');
-            localStorage.removeItem('user_membership');
-            window.location.href = "https://mudangetik.com/memberzone";
+                btnLogout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(confirm("Apakah kamu yakin ingin keluar dari Member Zone?")) {
+                        localStorage.removeItem('user_email');
+                        localStorage.removeItem('user_membership');
+                        window.location.href = "https://mudangetik.com/memberzone";
+                    }
+                });
             }
-            });
-            }
-            });
 
             // 3. Tarik Data Umur Akun Melalui Supabase
             const SUPABASE_URL = "https://ynaebyuhfxdokmtvuris.supabase.co";
@@ -603,25 +540,32 @@
             const selisihHari = Math.floor(selisihWaktu / (1000 * 3600 * 24));
 
             // 4. Aturan Eksekusi Gembok
-            const menuEbook = document.getElementById("menu-ebook");
+            const menuEbook = document.getElementById("menu-free-ebook");
             const iconGembok = document.getElementById("icon-gembok");
             const teksInfoEbook = document.getElementById("teks-info-ebook");
 
             function bukaGembok() {
-                iconGembok.classList.remove("fa-lock");
-                iconGembok.classList.add("fa-unlock");
-                iconGembok.style.color = "#FFD700";
-                teksInfoEbook.innerHTML = "Akses Antrean Terbuka! Selamat membaca <b>E-book Formula Worth It</b> di menu samping.";
+                if (iconGembok) {
+                    iconGembok.classList.remove("fa-lock");
+                    iconGembok.classList.add("fa-unlock");
+                    iconGembok.style.color = "#FFD700";
+                }
+                if (teksInfoEbook) {
+                    teksInfoEbook.innerHTML = "Akses Antrean Terbuka! Selamat membaca <b>E-book Formula Worth It</b> di menu samping.";
+                }
             }
 
             function kunciGembok(sisaHari) {
-                menuEbook.style.opacity = "0.5";
-                teksInfoEbook.innerHTML = `Sesuai aturan antrean Free, modul utama <b>E-book Formula Worth It akan terbuka otomatis dalam ${sisaHari} hari lagi</b>.`;
-                
-                menuEbook.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    alert(`Akses Terkunci! E-book Free baru akan terbuka otomatis ${sisaHari} hari lagi (Tepat 1 minggu sejak checkout). Mau potong antrean? Yuk upgrade ke VIP!`);
-                });
+                if (menuEbook) {
+                    menuEbook.style.opacity = "0.5";
+                    menuEbook.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        alert(`Akses Terkunci! E-book Free baru akan terbuka otomatis ${sisaHari} hari lagi (Tepat 1 minggu sejak checkout). Mau potong antrean? Yuk upgrade ke VIP!`);
+                    });
+                }
+                if (teksInfoEbook) {
+                    teksInfoEbook.innerHTML = `Sesuai aturan antrean Free, modul utama <b>E-book Formula Worth It akan terbuka otomatis dalam ${sisaHari} hari lagi</b>.`;
+                }
             }
 
             if (membershipType === "lifetime_vip") {
@@ -633,8 +577,7 @@
                     kunciGembok(7 - selisihHari);
                 }
             }
-        });
-        
+        }); // <-- TANDA PENUTUP `});` UNTUK DOMContentLoaded YANG TADI TERPUTUS SUDAH KEMBALI DI SINI!
     </script>
 </body>
 
