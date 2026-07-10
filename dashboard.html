@@ -347,38 +347,39 @@
             font-size: 13px;
             color: var(--text-gray);
         }
+
         .video-preview-section {
-        text-align: center;
-        border-top: 1px solid #e2e8f0;
-        padding-top: 50px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 50px;
         }
-        
+
         .video-preview-section h2 {
-        color: #0d1b2a;
-        font-size: 1.8rem;
-        margin-bottom: 8px;
+            color: #0d1b2a;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
         }
-        
+
         .section-subtitle {
-        color: #718096;
-        font-size: 1rem;
-        max-width: 650px;
-        margin: 0 auto 30px auto;
+            color: #718096;
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
         }
-        
+
         .video-frame-wrapper {
-        width: 100%;
-        display: flex;
-        justify-content: center;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
-        
+
         .large-preview-video {
-        width: 100%;
-        max-width: 720px;
-        height: auto;
-        border-radius: 14px;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-        border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
         }
     </style>
 </head>
@@ -508,21 +509,22 @@
                         <h3>Custom Keyboard Shortcut</h3>
                         <p>Buat keyboard shortcut sendiri biar makin produktif.</p>
                     </div>
-                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU" class="btn-download">Coba Buat</a>
+                    <a href="https://drive.google.com/drive/folders/1YaPXhv1u7I4Bu2bljBTJQP5XhC9QW-bU"
+                        class="btn-download">Coba Buat</a>
                 </div>
             </div>
         </section>
         </div>
         </div>
-           
-            <p class="section-subtitle">Tonton perbandingan visual free vs VIP Formula Worth It.</p>
-        
-            <div class="video-frame-wrapper">
-                <video controls class="large-preview-video">
-                    <source src="ilmunya.mp4" type="video/mp4">
-                    Browser kamu tidak mendukung pemutar video HTML5.
-                </video>
-            </div>
+
+        <p class="section-subtitle">Tonton perbandingan visual free vs VIP Formula Worth It.</p>
+
+        <div class="video-frame-wrapper">
+            <video controls class="large-preview-video">
+                <source src="ilmunya.mp4" type="video/mp4">
+                Browser kamu tidak mendukung pemutar video HTML5.
+            </video>
+        </div>
         </section>
 
     </main>
@@ -530,41 +532,52 @@
     <script>
         // Fungsi Perpindahan Tab Konten Langsung (Anti-Reload Halaman)
         function bukaTab(namaTab) {
-            // Sembunyikan semua konten section
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => sec.classList.remove('active-tab'));
-            
-            // Nonaktifkan semua status active di menu sidebar
-            const links = document.querySelectorAll('.nav-menu li a');
-            links.forEach(link => link.classList.remove('active'));
-            
-            // Tampilkan section yang dipilih & set menu menjadi active
-            document.getElementById('tab-' + namaTab).classList.add('active-tab');
-            document.getElementById('menu-' + namaTab).classList.add('active');
-            
-            // Update Teks Breadcrumb di Top bar
-            const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
-
-
-        document.addEventListener("DOMContentLoaded", async () => {
+        // Sembunyikan semua konten section
+        const sections = document.querySelectorAll('.content-section');
+        sections.forEach(sec => sec.classList.remove('active-tab'));
+        
+        // Nonaktifkan semua status active di menu sidebar
+        const links = document.querySelectorAll('.nav-menu li a');
+        links.forEach(link => link.classList.remove('active'));
+        
+        // Tampilkan section yang dipilih & set menu menjadi active
+        document.getElementById('tab-' + namaTab).classList.add('active-tab');
+        document.getElementById('menu-' + namaTab).classList.add('active');
+        
+        // Update Teks Breadcrumb di Top bar
+        const namaKapital = namaTab.charAt(0).toUpperCase() + namaTab.slice(1);
+        const breadcrumbElement = document.getElementById('breadcrumb-aktif'); // Pastikan ID ini sesuai di HTML Anda
+        if (breadcrumbElement) {
+        breadcrumbElement.textContent = `Member Zone / ${namaKapital}`;
+        }
+        } 
+        document.addEventListener("DOMContentLoaded", async ()=>
+            {
             const userEmail = localStorage.getItem("user_email");
             const membershipType = localStorage.getItem("user_membership");
-
+        
             // 1. Ekstraksi Nama dari Email untuk Sapaan Top Bar
             if (userEmail) {
-                let namaPanggilan = userEmail.split('@')[0];
-                namaPanggilan = namaPanggilan.charAt(0).toUpperCase() + namaPanggilan.slice(1);
-                document.getElementById('nama-user').textContent = `Hai, ${namaPanggilan} 👋`;
+            let namaPanggilan = userEmail.split('@')[0];
+            namaPanggilan = namaPanggilan.charAt(0).toUpperCase() + namaPanggilan.slice(1);
+            const namaUserElement = document.getElementById('nama-user');
+            if (namaUserElement) {
+            namaUserElement.textContent = `Hai, ${namaPanggilan} 👋`;
             }
-
+            }
+        
             // 2. Event Logout
-            document.getElementById('btn-logout').addEventListener('click', (e) => {
-                e.preventDefault();
-                if(confirm("Apakah kamu yakin ingin keluar dari Member Zone?")) {
-                    localStorage.removeItem('user_email');
-                    localStorage.removeItem('user_membership');
-                    window.location.href = "https://mudangetik.com/memberzone";
-                }
+            const btnLogout = document.getElementById('btn-logout');
+            if (btnLogout) {
+            btnLogout.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm("Apakah kamu yakin ingin keluar dari Member Zone?")) {
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('user_membership');
+            window.location.href = "https://mudangetik.com/memberzone";
+            }
+            });
+            }
             });
 
             // 3. Tarik Data Umur Akun Melalui Supabase
