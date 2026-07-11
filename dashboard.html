@@ -322,6 +322,36 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 215, 0, 0.1);
         }
+                    .quote-menyala {
+            font-size: 20px;
+            font-style: italic;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            /* Memanggil Animasi Nafas Menyala */
+            animation: glowAnimation 3s ease-in-out infinite;
+        }
+
+        /* Logika Animasi Breathing Neon Gold */
+        @keyframes glowAnimation {
+            0% {
+                text-shadow: 0 0 2px rgba(255, 215, 0, 0.2);
+                color: #e2e8f0;
+            }
+
+            50% {
+                text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4);
+                color: var(--neon-gold);
+            }
+
+            100% {
+                text-shadow: 0 0 2px rgba(255, 215, 0, 0.2);
+                color: #e2e8f0;
+            }
+        }
     </style>
 </head>
 
@@ -462,7 +492,9 @@
                 </div>
             </div>
         </section>
-
+        <div class="quote-menyala">
+            "Ingat, tekanan ini sedang memprosesmu menjadi berlian"
+        </div>
     </main>
 
     <script>
