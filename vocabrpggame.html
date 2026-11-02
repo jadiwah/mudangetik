@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vocab RPG  - Misi Membangun Istana Memori</title>
-
+    <title>VOCABRPG - Misi Membangun Istana Memori</title>
+    
     <!-- Tailwind CSS for UI styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
+    
     <!-- Babel for in-browser JSX transpilation -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -21,9 +20,8 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-
-        body,
-        html {
+        
+        body, html {
             margin: 0;
             padding: 0;
             width: 100%;
@@ -40,23 +38,10 @@
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1e293b;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #4f46e5;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6366f1;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
 
         .glass-panel {
             background: rgba(30, 41, 59, 0.8);
@@ -90,7 +75,7 @@
             border-radius: 50%;
             transform: translate(-50%, -50%);
             z-index: 10;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
             pointer-events: none;
         }
 
@@ -98,7 +83,7 @@
         .mobile-btn {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255,255,255,0.4);
             border-radius: 50%;
             width: 60px;
             height: 60px;
@@ -110,7 +95,6 @@
             user-select: none;
             touch-action: none;
         }
-
         .mobile-btn:active {
             background: rgba(255, 255, 255, 0.4);
         }
@@ -123,7 +107,6 @@
             box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
             backdrop-filter: blur(8px);
         }
-
         .minimap-dot {
             position: absolute;
             width: 8px;
@@ -133,7 +116,6 @@
             transform: translate(-50%, -50%);
             box-shadow: 0 0 5px #fcd34d;
         }
-
         .player-dot {
             position: absolute;
             width: 12px;
@@ -147,7 +129,6 @@
         }
     </style>
 </head>
-
 <body>
     <div id="root"></div>
 
@@ -198,7 +179,7 @@
                         <span className="text-purple-200 text-sm">30 Kosakata Lanjut</span>
                     </button>
                 </div>
-                <p className="mt-12 text-slate-500 text-sm font-semibold uppercase tracking-widest">Sebuah Inovasi by MudaNgetik.com</p>
+                <p className="mt-12 text-slate-500 text-sm font-semibold uppercase tracking-widest">Sebuah Inovasi by MudaNgetik</p>
             </div>
         );
 
@@ -376,8 +357,29 @@
             const [interactionInfo, setInteractionInfo] = useState(null);
             const [mapData, setMapData] = useState([]);
             
-            // Movement states for Mobile Controls
+            // Movement states & Joystick ref
             const keys = useRef({ w: false, a: false, s: false, d: false, left: false, right: false });
+            const joystickRef = useRef({ active: false, x: 0, y: 0, centerX: 0, centerY: 0 });
+
+            const updateJoystick = (clientX, clientY) => {
+                const maxDist = 40;
+                let dx = clientX - joystickRef.current.centerX;
+                let dy = clientY - joystickRef.current.centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > maxDist) {
+                    dx = (dx / distance) * maxDist;
+                    dy = (dy / distance) * maxDist;
+                }
+                
+                const thumb = document.getElementById('mobile-joystick-thumb');
+                if (thumb) {
+                    thumb.style.transform = `translate(${dx}px, ${dy}px)`;
+                }
+                
+                joystickRef.current.x = dx / maxDist;
+                joystickRef.current.y = dy / maxDist;
+            };
 
             useEffect(() => {
                 if (!canvasRef.current) return;
@@ -552,10 +554,22 @@
                     const right = new THREE.Vector3();
                     right.crossVectors(camera.up, forward).normalize();
 
-                    if(keys.current.w) camera.position.addScaledVector(forward, movementSpeed);
-                    if(keys.current.s) camera.position.addScaledVector(forward, -movementSpeed);
-                    if(keys.current.a) camera.position.addScaledVector(right, movementSpeed);
-                    if(keys.current.d) camera.position.addScaledVector(right, -movementSpeed);
+                    let moveForward = 0;
+                    let moveRight = 0;
+
+                    if(keys.current.w) moveForward += 1;
+                    if(keys.current.s) moveForward -= 1;
+                    if(keys.current.a) moveRight -= 1;
+                    if(keys.current.d) moveRight += 1;
+
+                    // Integrate Joystick movement (y inverted because upward drag is negative dy)
+                    if (joystickRef.current.active) {
+                        moveForward -= joystickRef.current.y;
+                        moveRight += joystickRef.current.x;
+                    }
+
+                    if (moveForward !== 0) camera.position.addScaledVector(forward, moveForward * movementSpeed);
+                    if (moveRight !== 0) camera.position.addScaledVector(right, moveRight * movementSpeed);
 
                     // Constrain player to floor
                     const distFromCenter = Math.sqrt(camera.position.x**2 + camera.position.z**2);
@@ -701,20 +715,57 @@
                         </div>
                     )}
 
-                    {/* Mobile Virtual Controller Controls */}
-                    <div className="absolute bottom-6 left-6 grid grid-cols-3 gap-2 sm:hidden z-30 hud-ui">
-                        <div className="col-start-2">
-                            <button className="mobile-btn" onTouchStart={handleTouchControl('w', true)} onTouchEnd={handleTouchControl('w', false)}>▲</button>
-                        </div>
-                        <div className="col-start-1 row-start-2">
-                            <button className="mobile-btn" onTouchStart={handleTouchControl('a', true)} onTouchEnd={handleTouchControl('a', false)}>◀</button>
-                        </div>
-                        <div className="col-start-2 row-start-2">
-                            <button className="mobile-btn" onTouchStart={handleTouchControl('s', true)} onTouchEnd={handleTouchControl('s', false)}>▼</button>
-                        </div>
-                        <div className="col-start-3 row-start-2">
-                            <button className="mobile-btn" onTouchStart={handleTouchControl('d', true)} onTouchEnd={handleTouchControl('d', false)}>▶</button>
-                        </div>
+                    {/* Virtual Analog Joystick (Supports both Touch & Mouse for testing) */}
+                    <div 
+                        className="absolute bottom-8 left-8 w-28 h-28 rounded-full bg-white/10 border-2 border-white/30 backdrop-blur-sm z-30 hud-ui flex items-center justify-center touch-none select-none shadow-2xl cursor-pointer"
+                        onTouchStart={(e) => {
+                            const touch = e.touches[0];
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            joystickRef.current.active = true;
+                            joystickRef.current.centerX = rect.left + rect.width / 2;
+                            joystickRef.current.centerY = rect.top + rect.height / 2;
+                            updateJoystick(touch.clientX, touch.clientY);
+                        }}
+                        onTouchMove={(e) => {
+                            if (!joystickRef.current.active) return;
+                            const touch = e.touches[0];
+                            updateJoystick(touch.clientX, touch.clientY);
+                        }}
+                        onTouchEnd={() => {
+                            joystickRef.current.active = false;
+                            joystickRef.current.x = 0;
+                            joystickRef.current.y = 0;
+                            const thumb = document.getElementById('mobile-joystick-thumb');
+                            if (thumb) thumb.style.transform = `translate(0px, 0px)`;
+                        }}
+                        onMouseDown={(e) => {
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            joystickRef.current.active = true;
+                            joystickRef.current.centerX = rect.left + rect.width / 2;
+                            joystickRef.current.centerY = rect.top + rect.height / 2;
+                            updateJoystick(e.clientX, e.clientY);
+                            
+                            const onMouseMove = (ev) => {
+                                updateJoystick(ev.clientX, ev.clientY);
+                            };
+                            const onMouseUp = () => {
+                                joystickRef.current.active = false;
+                                joystickRef.current.x = 0;
+                                joystickRef.current.y = 0;
+                                const thumb = document.getElementById('mobile-joystick-thumb');
+                                if (thumb) thumb.style.transform = `translate(0px, 0px)`;
+                                window.removeEventListener('mousemove', onMouseMove);
+                                window.removeEventListener('mouseup', onMouseUp);
+                            };
+                            window.addEventListener('mousemove', onMouseMove);
+                            window.addEventListener('mouseup', onMouseUp);
+                        }}
+                    >
+                        <div 
+                            id="mobile-joystick-thumb"
+                            className="w-12 h-12 rounded-full bg-indigo-500/90 shadow-lg pointer-events-none transition-transform duration-75"
+                            style={{ transform: 'translate(0px, 0px)' }}
+                        ></div>
                     </div>
                 </div>
             );
@@ -911,7 +962,7 @@
                         <div className="w-full max-w-2xl glass-panel p-8 rounded-2xl border-t-4 border-sky-400 relative overflow-hidden">
                             <div className="text-center mb-6">
                                 <h1 className="text-3xl font-black text-sky-400 mb-1 uppercase tracking-widest drop-shadow">Ujian Akhir Kosakata (MIX)</h1>
-                                <p className="text-slate-400 text-sm">Soal Terjemahan Campak (Indonesia ↔ Inggris).</p>
+                                <p className="text-slate-400 text-sm">Soal Terjemahan  (Indonesia ↔ Inggris).</p>
                             </div>
                             
                             <div className="flex justify-between items-center mb-6 text-slate-300 font-bold text-sm">
@@ -999,5 +1050,4 @@
         root.render(<App />);
     </script>
 </body>
-
 </html>
