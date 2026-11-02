@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vocab RPG  - Misi Membangun Istana Memori</title>
+    <title>Vocab RPG - Misi Membangun Istana Memori</title>
 
     <!-- Tailwind CSS for UI styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -162,7 +162,7 @@
             { en: "Apple", id: "Apel", location: "di atas sofa", action: "bernyanyi kencang" },
             { en: "Book", id: "Buku", location: "di dalam kulkas", action: "terbakar api biru" },
             { en: "Cat", id: "Kucing", location: "bergelantungan di lampu", action: "membaca koran" },
-            { en: "Dog", id: "Anjing", location: "di wastafel", action: "mandi busa pakai kacamata" },
+            { en: "Dog", id: "Anjing", location: "di wastafel", action: "pakai kacamata" },
             { en: "Elephant", id: "Gajah", location: "di atas lemari", action: "menari balet" },
             { en: "Fish", id: "Ikan", location: "terbang di ruang tamu", action: "mengejar kupu-kupu" },
             { en: "Grape", id: "Anggur", location: "di bawah karpet", action: "membesar seperti bola bowling" },
@@ -378,10 +378,58 @@
             
             // Movement states for Mobile Controls
             const keys = useRef({ w: false, a: false, s: false, d: false, left: false, right: false });
+let moveX = 0;
+let moveZ = 0;
 
+// Baca Keyboard (PC)
+if (keys['ArrowUp'] || keys['w']) moveZ -= 1;
+if (keys['ArrowDown'] || keys['s']) moveZ += 1;
+if (keys['ArrowLeft'] || keys['a']) moveX -= 1;
+if (keys['ArrowRight'] || keys['d']) moveX += 1;
+
+// Gabungkan dengan Analog Touch (Mobile)
+if (joystickData.active) {
+moveX += joystickData.x;
+moveZ += joystickData.y;
+}
+
+// Terapkan ke koordinat player
+player.x += moveX * player.speed;
+player.z += moveZ * player.speed;
             useEffect(() => {
                 if (!canvasRef.current) return;
+let joystickData = { x: 0, y: 0, active: false };
+const container = document.getElementById('joystick-container');
+const thumb = document.getElementById('joystick-thumb');
 
+if (container && thumb) {
+let maxDist = 35;
+const handleTouchStart = (e) => { joystickData.active = true; handleTouchMove(e); };
+const handleTouchMove = (e) => {
+if (!joystickData.active) return;
+let touch = e.touches[0];
+let rect = container.getBoundingClientRect();
+let dx = touch.clientX - (rect.left + rect.width / 2);
+let dy = touch.clientY - (rect.top + rect.height / 2);
+let distance = Math.sqrt(dx * dx + dy * dy);
+if (distance > maxDist) {
+dx = (dx / distance) * maxDist;
+dy = (dy / distance) * maxDist;
+}
+thumb.style.transform = `translate(${dx}px, ${dy}px)`;
+joystickData.x = dx / maxDist;
+joystickData.y = dy / maxDist;
+};
+const handleTouchEnd = () => {
+joystickData.active = false;
+joystickData.x = 0;
+joystickData.y = 0;
+thumb.style.transform = `translate(0px, 0px)`;
+};
+container.addEventListener('touchstart', handleTouchStart);
+container.addEventListener('touchmove', handleTouchMove);
+container.addEventListener('touchend', handleTouchEnd);
+}
                 // --- THREE.JS INITIALIZATION ---
                 const scene = new THREE.Scene();
                 scene.background = new THREE.Color(0x1e1b4b); // Deep cozy night/dream
@@ -653,7 +701,15 @@
                                 <span className="text-xs text-slate-300 leading-relaxed italic">"Bayangkan kamu sedang berada di sebuah ruangan dan berjalan menyusuri suatu tempat atau mendekat ke benda itu. Visual disini hanya untuk membantumu merasakan sensasi berjalan. Kemampuan imajinasimu luar biasa!"</span>
                             </div>
                         </div>
-
+{/* Virtual Analog Joystick (Mobile) */}
+<div id="joystick-container" style={{ position: 'absolute' , bottom: '30px' , left: '30px' , width: '120px' ,
+    height: '120px' , backgroundColor: 'rgba(255, 255, 255, 0.15)' , borderRadius: '50%' ,
+    border: '2px solid rgba(255, 255, 255, 0.3)' , touchAction: 'none' , zIndex: 1000, display: 'flex' ,
+    alignItems: 'center' , justifyContent: 'center' }}>
+    <div id="joystick-thumb" style={{ width: '50px' , height: '50px' , backgroundColor: 'rgba(99, 102, 241, 0.8)' ,
+        borderRadius: '50%' , position: 'absolute' , transform: 'translate(0px, 0px)' , pointerEvents: 'none' ,
+        boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }} />
+</div>
                         <div className="flex gap-4 items-start pointer-events-auto">
                             {/* Digital Minimap HUD */}
                             <div className="minimap-container w-40 h-40 relative hidden sm:block overflow-hidden">
