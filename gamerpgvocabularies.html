@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loci Quest: Istana Memori RPG</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Press Start 2P for RPG feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
+    <style>
+        .font-pixel {
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="h-full bg-slate-900 text-slate-100 flex flex-col items-center justify-start p-2 sm:p-4 overflow-x-hidden">
+
+    <!-- App Container -->
+    <div id="app"
+        class="w-full max-w-4xl bg-slate-800 border-4 border-slate-700 rounded-2xl shadow-2xl flex flex-col h-[95vh] overflow-hidden">
+
+        <!-- Header -->
+        <header class="bg-slate-900 px-6 py-4 border-b-2 border-slate-700 flex justify-between items-center shrink-0">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-2 rounded-lg text-white font-pixel text-xs sm:text-sm">LQ</div>
+                <h1 class="font-pixel text-xs sm:text-base text-indigo-400 tracking-wider">LOCI QUEST RPG</h1>
+            </div>
+            <div id="header-stats" class="hidden flex items-center space-x-4 text-xs sm:text-sm">
+                <span class="bg-slate-800 px-3 py-1 rounded-full border border-slate-700 text-amber-400 font-semibold"><i class="fa-solid fa-coins mr-1"></i> <span id="score-val">0</span>
+                Poin</span>
+                <span class="bg-slate-800 px-3 py-1 rounded-full border border-slate-700 text-indigo-300 font-semibold" id="char-badge"><i class="fa-solid fa-user mr-1"></i> <span id="char-name-badge">-</span></span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main
+            class="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col justify-center items-center relative custom-scrollbar">
+
+            <!-- STAGE 1: CHARACTER SELECTION (2 ROLES) -->
+            <section id="stage-character" class="w-full max-w-2xl flex flex-col items-center space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-bold font-pixel text-indigo-300">PILIH PAHLAWANMU</h2>
+                    <p class="text-slate-400 text-sm">Pilih prajurit atau ksatria untuk petualangan Istana Memori Loci!
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                    <!-- Character 1: Prajurit (10 Vocab) -->
+                    <div onclick="selectCharacter('Prajurit Budiman', 'Prajurit', 10, 'fa-shield-halved', 'bg-blue-600')"
+                        class="char-card cursor-pointer bg-slate-700/50 hover:bg-slate-700 border-2 border-slate-600 hover:border-indigo-500 rounded-xl p-6 flex flex-col items-center transition transform hover:-translate-y-1">
+                        <div
+                            class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-2xl text-white mb-3 shadow-md">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-white">Prajurit</h3>
+                        <p class="text-xs text-indigo-300 font-semibold mb-2">Kapasitas: 10 Kosakata</p>
+                        <p class="text-xs text-slate-400 text-center">Tangguh dan fokus pada misi memori tingkat dasar.
+                        </p>
+                    </div>
+
+                    <!-- Character 2: Ksatria (30 Vocab) -->
+                    <div onclick="selectCharacter('Ksatria Sejati', 'Ksatria', 30, 'fa-chess-rook', 'bg-amber-600')"
+                        class="char-card cursor-pointer bg-slate-700/50 hover:bg-slate-700 border-2 border-slate-600 hover:border-indigo-500 rounded-xl p-6 flex flex-col items-center transition transform hover:-translate-y-1">
+                        <div
+                            class="w-16 h-16 rounded-full bg-amber-600 flex items-center justify-center text-2xl text-white mb-3 shadow-md">
+                            <i class="fa-solid fa-chess-rook"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-white">Ksatria</h3>
+                        <p class="text-xs text-amber-300 font-semibold mb-2">Kapasitas: 30 Kosakata</p>
+                        <p class="text-xs text-slate-400 text-center">Pemberani sejati dengan tantangan memori tingkat
+                            mahir.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 2: VOCABULARY INPUT -->
+            <section id="stage-vocab" class="w-full max-w-2xl hidden flex flex-col items-center space-y-5">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl sm:text-2xl font-bold font-pixel text-indigo-300">INPUT KOSAKATA LOCI</h2>
+                    <p class="text-slate-400 text-sm">Masukkan <span id="vocab-target-label">10</span> kosakata Bahasa
+                        Inggris beserta artinya.</p>
+                </div>
+
+                <div class="w-full bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+                    <div class="flex justify-between items-center mb-3 text-xs text-indigo-300 font-semibold">
+                        <span>Daftar Kata (<span id="vocab-count">0</span>/<span id="vocab-max-label">10</span>)</span>
+                        <button onclick="loadDefaultVocabs()" class="text-xs text-amber-400 hover:underline"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Isi Contoh Cepat</button>
+                    </div>
+
+                    <div id="vocab-inputs-container"
+                        class="grid grid-cols-1 gap-2.5 max-h-56 overflow-y-auto pr-1 custom-scrollbar">
+                        <!-- Dynamic inputs injected via JS -->
+                    </div>
+                </div>
+
+                <button onclick="submitVocabs()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center space-x-2">
+                    <span>Lanjut ke Pembuatan Cerita Konyol</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </section>
+
+            <!-- STAGE 3: PLAYER CREATES SILLY STORY & LOCI PLACEMENT -->
+            <section id="stage-story-builder" class="w-full max-w-2xl hidden flex flex-col items-center space-y-5">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl sm:text-2xl font-bold font-pixel text-indigo-300">BUAT CERITA KONYOLMU SENDIRI
+                    </h2>
+                    <p class="text-slate-400 text-sm">Letakkan tiap kosakata di tempat tertentu & apa yang sedang
+                        dilakukan, lalu susun ke dalam cerita utuh!</p>
+                </div>
+
+                <div class="w-full bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar"
+                    id="story-builder-rows">
+                    <!-- Dynamic rows for placing vocab at location and activity -->
+                </div>
+
+                <div class="w-full bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-2">
+                    <label class="text-xs font-bold text-amber-400 block"><i class="fa-solid fa-book-open mr-1"></i> Placeholder / Gabungan Cerita Utuh:</label>
+                    <p class="text-slate-400 text-xs">Gunakan placeholder
+                        <code class="text-indigo-300">[1], [2], dst.</code> atau tulis bebas merangkai semua kosakata,
+                        tempat, dan aktivitas ke dalam cerita konyolmu:</p>
+                    <textarea id="full-story-textarea" rows="3" placeholder="Contoh: Hari ini saya berjalan ke [1] dan melihat benda itu [1_act]..." class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500"></textarea>
+                </div>
+
+                <button onclick="submitSillyStory()" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition shadow-lg flex items-center justify-center space-x-2">
+                    <span>Simpan Cerita & Mulai 10 Pertanyaan Loci!</span>
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                </button>
+            </section>
+
+            <!-- STAGE 4: 10 LOCI OBSERVATION QUESTIONS -->
+            <section id="stage-loci-quiz" class="w-full max-w-2xl hidden flex flex-col items-center space-y-6">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl sm:text-2xl font-bold font-pixel text-amber-400">PERTANYAAN CERITA LOCI</h2>
+                    <p class="text-slate-400 text-sm">Jawab 10 pertanyaan seputar tempat atau aktivitas kosakata
+                        berdasarkan cerita konyolmu!</p>
+                </div>
+
+                <div class="w-full bg-slate-900 p-6 rounded-2xl border border-slate-700 space-y-5">
+                    <div class="flex justify-between items-center text-xs text-slate-400">
+                        <span id="loci-quiz-progress">Pertanyaan 1 dari 10</span>
+                        <span class="text-amber-400 font-bold">Loci Test</span>
+                    </div>
+
+                    <h3 id="loci-question-text" class="text-base sm:text-lg font-bold text-white"></h3>
+
+                    <div id="loci-options-container" class="grid grid-cols-1 gap-3">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 5: FINAL MIXED VOCABULARY EXAM (5 INDO->ENG, 5 ENG->INDO) -->
+            <section id="stage-final-exam" class="w-full max-w-2xl hidden flex flex-col items-center space-y-6">
+                <div class="text-center space-y-1">
+                    <h2 class="text-xl sm:text-2xl font-bold font-pixel text-emerald-400">UJIAN AKHIR KOSAKATA (MIX)
+                    </h2>
+                    <p class="text-slate-400 text-sm">5 Soal Terjemahan (Indonesia ➔ Inggris) & 5 Soal (Inggris ➔
+                        Indonesia).</p>
+                </div>
+
+                <div class="w-full bg-slate-900 p-6 rounded-2xl border border-slate-700 space-y-5">
+                    <div class="flex justify-between items-center text-xs text-slate-400">
+                        <span id="exam-progress">Soal 1 dari 10</span>
+                        <span id="exam-mode-badge" class="bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-bold">ID ➔ ENG</span>
+                    </div>
+
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-center space-y-2">
+                        <span id="exam-prompt-label" class="text-xs uppercase tracking-wider text-indigo-400 font-semibold">Terjemahkan ke Bahasa Inggris:</span>
+                        <h3 id="exam-prompt-word" class="text-xl sm:text-2xl font-bold text-white"></h3>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs text-slate-400 font-medium">Ketik jawabanmu:</label>
+                        <div class="flex space-x-2">
+                            <input type="text" id="exam-user-answer" placeholder="Ketik jawaban di sini..." class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-indigo-500 text-sm">
+                            <button onclick="submitExamAnswer()" class="bg-emerald-600 hover:bg-emerald-500 px-6 py-3 rounded-xl font-bold text-white transition">Kirim</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STAGE 6: RESULT & VICTORY -->
+            <section id="stage-result" class="w-full max-w-2xl hidden flex flex-col items-center space-y-6 text-center">
+                <div
+                    class="w-20 h-20 bg-amber-500/20 border-2 border-amber-500 rounded-full flex items-center justify-center text-amber-400 text-4xl mb-1 animate-bounce">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <h2 class="text-2xl sm:text-3xl font-bold font-pixel text-amber-400">MISI SELESAI!</h2>
+                    <p class="text-slate-300 text-sm" id="result-message">Kamu berhasil menaklukkan Istana Memori Loci!
+                    </p>
+                </div>
+
+                <div class="w-full bg-slate-900 p-6 rounded-2xl border border-slate-700 grid grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                        <span class="text-xs text-slate-400 block mb-1">Total Poin</span>
+                        <span id="final-score" class="text-2xl sm:text-3xl font-bold text-amber-400 font-pixel">0</span>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                        <span class="text-xs text-slate-400 block mb-1">Ujian Kosakata</span>
+                        <span id="vocab-mastered-count" class="text-2xl sm:text-3xl font-bold text-emerald-400 font-pixel">0/10</span>
+                    </div>
+                </div>
+
+                <button onclick="resetGame()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg">
+                    Main Lagi / Petualangan Baru
+                </button>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Custom Modal for Notifications -->
+    <div id="custom-modal"
+        class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div
+            class="bg-slate-800 border-2 border-slate-700 w-full max-w-md rounded-2xl p-6 text-center space-y-4 shadow-2xl">
+            <div id="modal-icon" class="text-4xl text-amber-400 mb-1">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h3 id="modal-title" class="font-bold text-lg text-white">Pemberitahuan</h3>
+            <p id="modal-message" class="text-slate-300 text-sm"></p>
+            <button onclick="closeModal()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition">Mengerti</button>
+        </div>
+    </div>
+
+    <!-- Game Logic Script -->
+    <script>
+        // Game State Variables
+        let gameState = {
+            character: { name: '', role: '', maxVocab: 10, icon: '', color: '' },
+            score: 0,
+            vocabs: [], // Array of {en: '', id: '', location: '', activity: ''}
+            fullStory: '',
+            lociQuestions: [],
+            currentLociQuestionIndex: 0,
+            examIndex: 0,
+            examCorrectCount: 0,
+            examQuestions: [] // 10 mixed questions (5 ID->ENG, 5 ENG->ID)
+        };
+
+        function showModal(title, message, isError = false) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            const iconEl = document.getElementById('modal-icon');
+            if(isError) {
+                iconEl.className = "text-4xl text-red-400 mb-1";
+                iconEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            } else {
+                iconEl.className = "text-4xl text-amber-400 mb-1";
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+            }
+            document.getElementById('custom-modal').classList.remove('hidden');
+            document.getElementById('custom-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.remove('flex');
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // 1. Character Selection
+        function selectCharacter(name, role, maxVocab, icon, color) {
+            gameState.character = { name, role, maxVocab, icon, color };
+            
+            // Update header badge
+            document.getElementById('header-stats').classList.remove('hidden');
+            document.getElementById('char-name-badge').innerText = name;
+            
+            // Update vocab stage labels
+            document.getElementById('vocab-target-label').innerText = maxVocab;
+            document.getElementById('vocab-max-label').innerText = maxVocab;
+
+            renderVocabInputs();
+
+            // Transition to Vocab Stage
+            document.getElementById('stage-character').classList.add('hidden');
+            document.getElementById('stage-vocab').classList.remove('hidden');
+        }
+
+        // Render Input Fields based on character capacity (10 or 30)
+        function renderVocabInputs() {
+            const container = document.getElementById('vocab-inputs-container');
+            container.innerHTML = '';
+            for(let i = 0; i < gameState.character.maxVocab; i++) {
+                container.innerHTML += `
+                    <div class="flex items-center space-x-2 bg-slate-800 p-2 rounded-xl border border-slate-700">
+                        <span class="text-xs font-bold text-indigo-400 w-6 text-center">${i+1}.</span>
+                        <input type="text" id="vocab-en-${i}" placeholder="Bahasa Inggris (cth: Apple)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        <input type="text" id="vocab-id-${i}" placeholder="Artinya (cth: Apel)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+                `;
+            }
+            document.getElementById('vocab-count').innerText = gameState.character.maxVocab;
+        }
+
+        // Quick fill sample vocabulary
+        function loadDefaultVocabs() {
+            const samplePool = [
+                {en: "Apple", id: "Apel"}, {en: "Book", id: "Buku"}, {en: "Cat", id: "Kucing"}, {en: "Dog", id: "Anjing"}, {en: "Elephant", id: "Gajah"},
+                {en: "Fish", id: "Ikan"}, {en: "Guitar", id: "Gitar"}, {en: "Hat", id: "Topi"}, {en: "Ice", id: "Es"}, {en: "Jacket", id: "Jaket"},
+                {en: "Key", id: "Kunci"}, {en: "Lamp", id: "Lampu"}, {en: "Moon", id: "Bulan"}, {en: "Note", id: "Catatan"}, {en: "Orange", id: "Jeruk"},
+                {en: "Pen", id: "Pulpen"}, {en: "Queen", id: "Ratu"}, {en: "Rain", id: "Hujan"}, {en: "Sun", id: "Matahari"}, {en: "Tree", id: "Pohon"},
+                {en: "Umbrella", id: "Payung"}, {en: "Vase", id: "Vas"}, {en: "Water", id: "Air"}, {en: "Xylophone", id: "Xilofon"}, {en: "Yacht", id: "Kapal Pesiar"},
+                {en: "Zebra", id: "Zebra"}, {en: "Bird", id: "Burung"}, {en: "Chair", id: "Kursi"}, {en: "Door", id: "Pintu"}, {en: "Egg", id: "Telur"}
+            ];
+
+            const limit = gameState.character.maxVocab;
+            for(let i = 0; i < limit; i++) {
+                document.getElementById(`vocab-en-${i}`).value = samplePool[i].en;
+                document.getElementById(`vocab-id-${i}`).value = samplePool[i].id;
+            }
+        }
+
+        // 2. Submit Vocabularies & Move to Story Builder
+        function submitVocabs() {
+            gameState.vocabs = [];
+            let valid = true;
+            const limit = gameState.character.maxVocab;
+
+            for(let i = 0; i < limit; i++) {
+                let en = document.getElementById(`vocab-en-${i}`).value.trim();
+                let id = document.getElementById(`vocab-id-${i}`).value.trim();
+
+                if(!en || !id) {
+                    valid = false;
+                    break;
+                }
+                gameState.vocabs.push({ en, id, location: '', activity: '' });
+            }
+
+            if(!valid) {
+                showModal("Perhatian", `Mohon isi lengkap seluruh ${limit} pasangan kosakata Bahasa Inggris dan artinya!`, true);
+                return;
+            }
+
+            renderStoryBuilderInputs();
+
+            // Transition to Story Builder Stage
+            document.getElementById('stage-vocab').classList.add('hidden');
+            document.getElementById('stage-story-builder').classList.remove('hidden');
+        }
+
+        // Render input rows for player to set where & what activity for each vocab
+        function renderStoryBuilderInputs() {
+            const container = document.getElementById('story-builder-rows');
+            container.innerHTML = '';
+
+            gameState.vocabs.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="bg-slate-800 p-3 rounded-xl border border-slate-700 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-400">Kata [${index+1}]: ${item.en} (${item.id})</span>
+                            <span class="text-[10px] text-indigo-300 bg-slate-900 px-2 py-0.5 rounded">Tempat & Aktivitas Loci</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <input type="text" id="loc-${index}" placeholder="Di mana? (cth: di atas sofa)" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                            <input type="text" id="act-${index}" placeholder="Sedang apa? (cth: bernyanyi kencang)" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 3. Submit Silly Story & Generate 10 Questions
+        function submitSillyStory() {
+            let allFilled = true;
+            gameState.vocabs.forEach((item, index) => {
+                let loc = document.getElementById(`loc-${index}`).value.trim();
+                let act = document.getElementById(`act-${index}`).value.trim();
+                if(!loc || !act) {
+                    allFilled = false;
+                }
+                gameState.vocabs[index].location = loc;
+                gameState.vocabs[index].activity = act;
+            });
+
+            if(!allFilled) {
+                showModal("Perhatian", "Mohon isi lengkap bagian 'Di mana?' dan 'Sedang apa?' untuk setiap kosakata!", true);
+                return;
+            }
+
+            gameState.fullStory = document.getElementById('full-story-textarea').value.trim();
+
+            // Generate exactly 10 questions asking either location or activity based on player's input
+            generateLociQuestions();
+
+            // Transition to Loci Quiz Stage
+            document.getElementById('stage-story-builder').classList.add('hidden');
+            document.getElementById('stage-loci-quiz').classList.remove('hidden');
+            gameState.currentLociQuestionIndex = 0;
+            renderLociQuestion();
+        }
+
+        // Generate 10 questions from player's created story data
+        function generateLociQuestions() {
+            gameState.lociQuestions = [];
+            
+            // Create a question for each vocab (location or activity) until we have 10
+            let questionPool = [];
+            gameState.vocabs.forEach((item, index) => {
+                // Question Type 1: Location
+                questionPool.push({
+                    question: `Berdasarkan cerita konyolmu, di manakah kosakata "${item.en}" (${item.id}) diletakkan?`,
+                    correct: item.location,
+                    type: 'location',
+                    vocabIndex: index
+                });
+
+                // Question Type 2: Activity
+                questionPool.push({
+                    question: `Dalam cerita konyolmu, apa yang sedang dilakukan / terjadi pada kosakata "${item.en}" (${item.id})?`,
+                    correct: item.activity,
+                    type: 'activity',
+                    vocabIndex: index
+                });
+            });
+
+            // Shuffle and pick 10 questions
+            questionPool = shuffleArray(questionPool);
+            
+            // Ensure we pick up to 10 questions
+            gameState.lociQuestions = questionPool.slice(0, 10);
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Render Loci Quiz Question
+        function renderLociQuestion() {
+            const qIndex = gameState.currentLociQuestionIndex;
+            if(qIndex >= gameState.lociQuestions.length) {
+                // Move to Final Exam Stage
+                document.getElementById('stage-loci-quiz').classList.add('hidden');
+                document.getElementById('stage-final-exam').classList.remove('hidden');
+                prepareFinalExam();
+                return;
+            }
+
+            const currentQ = gameState.lociQuestions[qIndex];
+            document.getElementById('loci-quiz-progress').innerText = `Pertanyaan ${qIndex + 1} dari ${gameState.lociQuestions.length}`;
+            document.getElementById('loci-question-text').innerText = currentQ.question;
+
+            // Generate 3 distractors from other vocabs or custom dummies
+            let distractors = [];
+            gameState.vocabs.forEach((v, idx) => {
+                if(idx !== currentQ.vocabIndex) {
+                    distractors.push(currentQ.type === 'location' ? v.location : v.activity);
+                }
+            });
+            distractors = shuffleArray(distractors).slice(0, 3);
+            
+            let options = shuffleArray([currentQ.correct, ...distractors]);
+
+            const optionsContainer = document.getElementById('loci-options-container');
+            optionsContainer.innerHTML = '';
+
+            options.forEach(opt => {
+                optionsContainer.innerHTML += `
+                    <button onclick="answerLociQuestion('${opt.replace(/'/g, "\\'")}', '${currentQ.correct.replace(/'/g, "\\'")}')" class="w-full text-left bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-indigo-500 p-3.5 rounded-xl transition text-sm text-slate-200">
+                        <i class="fa-solid fa-angles-right text-indigo-400 mr-2 text-xs"></i> ${opt}
+                    </button>
+                `;
+            });
+        }
+
+        function answerLociQuestion(selected, correct) {
+            if(selected === correct) {
+                gameState.score += 30;
+                document.getElementById('score-val').innerText = gameState.score;
+                showModal("Benar!", "Ingatan Loci-mu sangat akurat! (+30 Poin)");
+            } else {
+                showModal("Kurang Tepat", `Jawaban yang benar sesuai cerita konyolmu adalah: "${correct}"`, true);
+            }
+
+            setTimeout(() => {
+                closeModal();
+                gameState.currentLociQuestionIndex++;
+                renderLociQuestion();
+            }, 1200);
+        }
+
+        // 4. Prepare Final Mixed Exam (5 Indo->Eng, 5 Eng->Indo)
+        function prepareFinalExam() {
+            gameState.examIndex = 0;
+            gameState.examCorrectCount = 0;
+            gameState.examQuestions = [];
+
+            // Pick 10 random vocabs from player's list
+            let selectedVocabs = shuffleArray([...gameState.vocabs]).slice(0, 10);
+
+            selectedVocabs.forEach((item, idx) => {
+                // First 5: ID -> ENG, Next 5: ENG -> ID
+                if(idx < 5) {
+                    gameState.examQuestions.push({
+                        mode: 'id-to-eng',
+                        promptLabel: 'Terjemahkan ke Bahasa Inggris:',
+                        promptWord: item.id,
+                        correctAnswer: item.en.toLowerCase()
+                    });
+                } else {
+                    gameState.examQuestions.push({
+                        mode: 'eng-to-id',
+                        promptLabel: 'Terjemahkan ke Bahasa Indonesia:',
+                        promptWord: item.en,
+                        correctAnswer: item.id.toLowerCase()
+                    });
+                }
+            });
+
+            // Shuffle exam questions order
+            gameState.examQuestions = shuffleArray(gameState.examQuestions);
+            renderExamQuestion();
+        }
+
+        function renderExamQuestion() {
+            const idx = gameState.examIndex;
+            if(idx >= gameState.examQuestions.length) {
+                finishGame();
+                return;
+            }
+
+            const currentQ = gameState.examQuestions[idx];
+            document.getElementById('exam-progress').innerText = `Soal ${idx + 1} dari 10`;
+            document.getElementById('exam-prompt-label').innerText = currentQ.promptLabel;
+            document.getElementById('exam-prompt-word').innerText = currentQ.promptWord;
+            
+            const badge = document.getElementById('exam-mode-badge');
+            if(currentQ.mode === 'id-to-eng') {
+                badge.className = "bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-bold text-xs";
+                badge.innerText = "ID ➔ ENG";
+            } else {
+                badge.className = "bg-blue-500/20 text-blue-400 px-2.5 py-0.5 rounded-full font-bold text-xs";
+                badge.innerText = "ENG ➔ ID";
+            }
+
+            document.getElementById('exam-user-answer').value = '';
+            document.getElementById('exam-user-answer').focus();
+        }
+
+        function submitExamAnswer() {
+            const idx = gameState.examIndex;
+            const currentQ = gameState.examQuestions[idx];
+            const userAns = document.getElementById('exam-user-answer').value.trim().toLowerCase();
+
+            if(!userAns) {
+                showModal("Perhatian", "Masukkan jawaban terjemahan terlebih dahulu!", true);
+                return;
+            }
+
+            if(userAns === currentQ.correctAnswer) {
+                gameState.score += 70;
+                gameState.examCorrectCount++;
+                document.getElementById('score-val').innerText = gameState.score;
+                showModal("Hebat!", `Terjemahan benar! (+70 Poin)`);
+            } else {
+                showModal("Kurang Tepat", `Jawaban yang benar adalah: "${currentQ.correctAnswer}"`, true);
+            }
+
+            setTimeout(() => {
+                closeModal();
+                gameState.examIndex++;
+                renderExamQuestion();
+            }, 1200);
+        }
+
+        // Allow Enter key submission
+        document.getElementById('exam-user-answer').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                submitExamAnswer();
+            }
+        });
+
+        // 5. Finish Game & Result Screen
+        function finishGame() {
+            document.getElementById('stage-final-exam').classList.add('hidden');
+            document.getElementById('stage-result').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = gameState.score;
+            document.getElementById('vocab-mastered-count').innerText = `${gameState.examCorrectCount}/10`;
+
+            let msg = `Luar biasa! ${gameState.character.name} berhasil menyelesaikan petualangan Istana Memori Loci dengan cerita konyol yang luar biasa!`;
+            if(gameState.examCorrectCount === 10) {
+                msg = `Sempurna! Kamu adalah Grandmaster Istana Memori Loci sejati!`;
+            } else if(gameState.examCorrectCount < 5) {
+                msg = `Cukup baik, terus tingkatkan penguasaan kosakata dan imajinasimu!`;
+            }
+            document.getElementById('result-message').innerText = msg;
+        }
+
+        function resetGame() {
+            gameState = {
+                character: { name: '', role: '', maxVocab: 10, icon: '', color: '' },
+                score: 0,
+                vocabs: [],
+                fullStory: '',
+                lociQuestions: [],
+                currentLociQuestionIndex: 0,
+                examIndex: 0,
+                examCorrectCount: 0,
+                examQuestions: []
+            };
+
+            document.getElementById('header-stats').classList.add('hidden');
+            document.getElementById('score-val').innerText = "0";
+            document.getElementById('stage-result').classList.add('hidden');
+            document.getElementById('stage-character').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>
