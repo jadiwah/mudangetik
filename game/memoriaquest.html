@@ -171,36 +171,74 @@
             { en: "Juice", id: "Jus", location: "di rak sepatu", action: "menyiram tanaman otomatis" }
         ];
 const TRIAL_KEY = 'rpg_loci_trial_used_v1';
-const UNLOCK_URL = 'https://wa.me/6289637709173'; // ganti dengan link pembelian/kontakmu
+const UNLOCK_KEY = 'rpg_loci_unlocked_v1';
+const GAME_PASSWORD = 'ISIGFORMDULU';
+const GFORM_URL = 'https://forms.gle/cttif4iceDEjwNLH6';
 
-const isTrialUsed = () => {
-try { return localStorage.getItem(TRIAL_KEY) === 'true'; }
-catch (e) { return false; } // storage diblokir -> jangan kunci pemain
+const safeGet = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const safeSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+
+const isUnlocked = () => safeGet(UNLOCK_KEY) === 'true';
+const isTrialUsed = () => safeGet(TRIAL_KEY) === 'true' && !isUnlocked();
+const markTrialUsed = () => { if (!isUnlocked()) safeSet(TRIAL_KEY, 'true'); };
+
+const ScreenLocked = ({ onUnlock }) => {
+    const [code, setCode] = useState('');
+    const [error, setError] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (code.trim().toUpperCase() === GAME_PASSWORD) {
+            safeSet(UNLOCK_KEY, 'true');
+            onUnlock();
+        } else {
+            setError('Password salah. Isi Google Form dulu untuk mendapatkan password.');
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center justify-center h-full text-center p-6 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black">
+            <div className="text-7xl mb-6 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]">🔒</div>
+            <h1 className="text-4xl font-black text-amber-400 mb-3">Trial Telah Berakhir</h1>
+            <p className="text-slate-300 max-w-md mb-2">
+                Kamu sudah menuntaskan 1x misi percobaan di Memoria Quest. Istana Memorimu kini terkunci.
+            </p>
+            <p className="text-slate-500 text-sm max-w-md mb-8">
+                Masukkan password untuk membuka gembok dan lanjut membangun istana memori.
+            </p>
+
+            <form onSubmit={handleSubmit} className="w-full max-w-sm">
+                <div className="flex gap-2">
+                    <input
+                        type="password"
+                        value={code}
+                        onChange={(e) => { setCode(e.target.value); setError(''); }}
+                        placeholder="Masukkan password"
+                        className="flex-1 bg-slate-800 border border-slate-600 rounded-xl p-4 text-white text-lg focus:outline-none focus:border-amber-400"
+                    />
+                    <button
+                        type="submit"
+                        disabled={!code.trim()}
+                        className="px-6 bg-amber-500 hover:bg-amber-400 disabled:bg-slate-700 disabled:text-slate-500 text-slate-900 font-black rounded-xl cozy-shadow transition-colors"
+                    >
+                        🔓 Buka
+                    </button>
+                </div>
+                {error && <p className="mt-3 text-red-400 text-sm font-bold">{error}</p>}
+            </form>
+
+            <a
+                href={GFORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-10 text-sky-400 hover:text-sky-300 underline underline-offset-4 font-bold"
+            >
+                Dapatkan Password
+            </a>
+            <p className="mt-4 text-slate-600 text-xs font-semibold uppercase tracking-widest">Sebuah Inovasi by MudaNgetik</p>
+        </div>
+    );
 };
-
-const markTrialUsed = () => {
-try { localStorage.setItem(TRIAL_KEY, 'true'); }
-catch (e) { /* abaikan */ }
-};
-
-const ScreenLocked = () => (
-<div
-    className="flex flex-col items-center justify-center h-full text-center p-6 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black">
-    <div className="text-7xl mb-6 drop-shadow-[0_0_20px_rgba(251,191,36,0.6)]">🔒</div>
-    <h1 className="text-4xl font-black text-amber-400 mb-3">Trial Telah Berakhir</h1>
-    <p className="text-slate-300 max-w-md mb-2">
-        Kamu sudah menuntaskan 1x misi percobaan di Memoria Quest. Istana Memorimu kini terkunci.
-    </p>
-    <p className="text-slate-500 text-sm max-w-md mb-10">
-        Buka gembok untuk membangun istana memori tanpa batas dan menaklukkan lebih banyak kosakata.
-    </p>
-    <a href={UNLOCK_URL} target="_blank" rel="noopener noreferrer"
-        className="px-10 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-xl font-black text-xl cozy-shadow transition-transform hover:scale-105">
-        🔓 Buka Gembok Sekarang
-    </a>
-    <p className="mt-12 text-slate-600 text-xs font-semibold uppercase tracking-widest">Sebuah Inovasi by MudaNgetik</p>
-</div>
-);
         // --- COMPONENTS ---
 
         // 1. MAIN MENU
@@ -1072,7 +1110,7 @@ const [assignedData, setAssignedData] = useState([]);
 
 // 🔒 GERBANG UTAMA: jika terkunci, Three.js & seluruh game tidak pernah dimuat
 if (isLocked) {
-    return <ScreenLocked />;
+    return <ScreenLocked onUnlock={() => { setIsLocked(false); setScreen('menu'); }} />;
 }
 
 const handleMenuSelect = (count) => {
