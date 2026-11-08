@@ -1071,8 +1071,9 @@ const [vocabs, setVocabs] = useState([]);
 const [assignedData, setAssignedData] = useState([]);
 
 // 🔒 GERBANG UTAMA: jika terkunci, Three.js & seluruh game tidak pernah dimuat
-if (isLocked) return
-<ScreenLocked />;
+if (isLocked) {
+    return <ScreenLocked />;
+}
 
 const handleMenuSelect = (count) => {
 setDifficulty(count);
